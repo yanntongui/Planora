@@ -21,37 +21,36 @@ const ChatBubble: React.FC<{ message: Message }> = ({ message }) => {
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className={`px-4 py-2 rounded-2xl max-w-sm whitespace-pre-wrap text-sm ${
-          isModel
+        className={`px-4 py-2 rounded-2xl max-w-sm whitespace-pre-wrap text-sm ${isModel
             ? 'bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 rounded-bl-none'
             : 'bg-purple-600 text-white rounded-br-none'
-        }`}
+          }`}
       >
         {message.content}
       </motion.div>
       {message.sources && message.sources.length > 0 && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="mt-2 text-xs text-zinc-500 dark:text-zinc-400 max-w-sm bg-zinc-50 dark:bg-zinc-900/50 p-2 rounded-lg border border-zinc-100 dark:border-zinc-800"
-          >
-              <p className="font-semibold mb-1 uppercase tracking-wider text-[10px]">Sources vérifiées :</p>
-              <ul className="space-y-1">
-                  {message.sources.map((source, idx) => (
-                      <li key={idx}>
-                          <a 
-                            href={source.uri} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-blue-500 hover:underline truncate block flex items-center gap-1"
-                          >
-                              <span className="w-1 h-1 bg-blue-500 rounded-full flex-shrink-0"></span>
-                              <span className="truncate">{source.title || new URL(source.uri).hostname}</span>
-                          </a>
-                      </li>
-                  ))}
-              </ul>
-          </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="mt-2 text-xs text-zinc-500 dark:text-zinc-400 max-w-sm bg-zinc-50 dark:bg-zinc-900/50 p-2 rounded-lg border border-zinc-100 dark:border-zinc-800"
+        >
+          <p className="font-semibold mb-1 uppercase tracking-wider text-[10px]">Sources vérifiées :</p>
+          <ul className="space-y-1">
+            {message.sources.map((source, idx) => (
+              <li key={idx}>
+                <a
+                  href={source.uri}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500 hover:underline truncate block flex items-center gap-1"
+                >
+                  <span className="w-1 h-1 bg-blue-500 rounded-full flex-shrink-0"></span>
+                  <span className="truncate">{source.title || new URL(source.uri).hostname}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
       )}
     </div>
   );
@@ -75,39 +74,39 @@ const InsightsWidget: React.FC = () => {
 
   // Smart Context Aggregation
   const getAggregatedContext = () => {
-      const now = new Date();
-      const sixMonthsAgo = new Date();
-      sixMonthsAgo.setMonth(now.getMonth() - 6);
+    const now = new Date();
+    const sixMonthsAgo = new Date();
+    sixMonthsAgo.setMonth(now.getMonth() - 6);
 
-      // Monthly aggregation
-      const monthlyStats: Record<string, Record<string, number>> = {};
-      
-      transactions.forEach(tx => {
-          const date = new Date(tx.date);
-          if (date >= sixMonthsAgo && tx.type === 'expense') {
-              const monthKey = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
-              if (!monthlyStats[monthKey]) monthlyStats[monthKey] = {};
-              const cat = tx.category || 'general';
-              monthlyStats[monthKey][cat] = (monthlyStats[monthKey][cat] || 0) + tx.amount;
-          }
-      });
+    // Monthly aggregation
+    const monthlyStats: Record<string, Record<string, number>> = {};
 
-      return JSON.stringify({
-          userProfile: { name: userName, ...userProfile.metrics, ...userProfile.inferred },
-          monthlySpendingHistory: monthlyStats,
-          recentTransactions: transactions.slice(0, 20).map(tx => ({ 
-              amount: tx.amount, 
-              label: tx.label, 
-              category: tx.category, 
-              date: tx.date.split('T')[0],
-              type: tx.type
-          })),
-          activeBudgets: budgets.map(b => ({ name: b.name, limit: b.limit, currentSpent: b.currentSpent, type: b.type })),
-          financialGoals: goals.map(g => ({ name: g.name, target: g.target, currentSaved: g.currentSaved, targetDate: g.targetDate })),
-          budgetingMethod: budgetingRule ? `Rule: ${budgetingRule.needs}/${budgetingRule.wants}/${budgetingRule.savings}` : "No specific rule set",
-          monthlyPlanSummary: monthlyPlan ? { plannedIncome: monthlyPlan.plannedIncome, plannedSavings: monthlyPlan.plannedContributions.reduce((s,c) => s+c.amount, 0) } : null,
-          debts: debts.map(d => ({ type: d.type, person: d.person, amount: d.totalAmount, status: d.status }))
-      });
+    transactions.forEach(tx => {
+      const date = new Date(tx.date);
+      if (date >= sixMonthsAgo && tx.type === 'expense') {
+        const monthKey = date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+        if (!monthlyStats[monthKey]) monthlyStats[monthKey] = {};
+        const cat = tx.category || 'general';
+        monthlyStats[monthKey][cat] = (monthlyStats[monthKey][cat] || 0) + tx.amount;
+      }
+    });
+
+    return JSON.stringify({
+      userProfile: { name: userName, ...userProfile.metrics, ...userProfile.inferred },
+      monthlySpendingHistory: monthlyStats,
+      recentTransactions: transactions.slice(0, 20).map(tx => ({
+        amount: tx.amount,
+        label: tx.label,
+        category: tx.category,
+        date: tx.date.split('T')[0],
+        type: tx.type
+      })),
+      activeBudgets: budgets.map(b => ({ name: b.name, limit: b.limit, currentSpent: b.currentSpent, type: b.type })),
+      financialGoals: goals.map(g => ({ name: g.name, target: g.target, currentSaved: g.currentSaved, targetDate: g.targetDate })),
+      budgetingMethod: budgetingRule ? `Rule: ${budgetingRule.needs}/${budgetingRule.wants}/${budgetingRule.savings}` : "No specific rule set",
+      monthlyPlanSummary: monthlyPlan ? { plannedIncome: monthlyPlan.plannedIncome, plannedSavings: monthlyPlan.plannedContributions.reduce((s, c) => s + c.amount, 0) } : null,
+      debts: debts.map(d => ({ type: d.type, person: d.person, amount: d.totalAmount, status: d.status }))
+    });
   };
 
   useEffect(() => {
@@ -130,23 +129,23 @@ const InsightsWidget: React.FC = () => {
         setIsLoading(false);
         return;
       }
-      
+
       setIsLoading(true);
       setError('');
-      
+
       try {
-        const ai = new GoogleGenAI({ apiKey });
+        const ai = new GoogleGenAI({ apiKey, dangerouslyAllowBrowser: true });
         const financialContext = getAggregatedContext();
-        
+
         let toneInstruction = "Benevolent, non-judgmental, reassuring.";
         let forbidden = `"bad", "error", "failure", "wrong"`;
-        
+
         if (aiPersona === 'strict') {
-            toneInstruction = "Direct, disciplined, military-style coaching. Focus on discipline and facts. Use short sentences.";
-            forbidden = `"excuse", "maybe", "try"`;
+          toneInstruction = "Direct, disciplined, military-style coaching. Focus on discipline and facts. Use short sentences.";
+          forbidden = `"excuse", "maybe", "try"`;
         } else if (aiPersona === 'humorous') {
-            toneInstruction = "Witty, sarcastic but helpful, fun. Use financial puns and light-hearted jokes to soften the blow of spending.";
-            forbidden = ``; 
+          toneInstruction = "Witty, sarcastic but helpful, fun. Use financial puns and light-hearted jokes to soften the blow of spending.";
+          forbidden = ``;
         }
 
         const systemInstruction = `
@@ -189,21 +188,21 @@ ${financialContext}
 Respond in ${language === 'fr' ? 'French' : 'English'}.
 `;
 
-        chatRef.current = ai.chats.create({ 
-            model: 'gemini-3-flash-preview',
-            config: {
-                tools: [{ googleSearch: {} }],
-                systemInstruction: systemInstruction,
-            }
+        chatRef.current = ai.chats.create({
+          model: 'gemini-3-flash-preview',
+          config: {
+            tools: [{ googleSearch: {} }],
+            systemInstruction: systemInstruction,
+          }
         });
 
         // Initial proactive analysis "Conseil du jour"
-        const initialPrompt = language === 'fr' 
-            ? "Analyse brièvement ma situation actuelle et donne-moi un 'Conseil du jour' structuré." 
-            : "Briefly analyze my current situation and give me a structured 'Tip of the Day'.";
+        const initialPrompt = language === 'fr'
+          ? "Analyse brièvement ma situation actuelle et donne-moi un 'Conseil du jour' structuré."
+          : "Briefly analyze my current situation and give me a structured 'Tip of the Day'.";
 
         const initialResponse = await chatRef.current.sendMessageStream({ message: initialPrompt });
-        
+
         setIsLoading(false);
         setMessages(prev => [...prev, { role: 'model', content: '' }]);
 
@@ -214,26 +213,26 @@ Respond in ${language === 'fr' ? 'French' : 'English'}.
           const c = chunk as GenerateContentResponse;
           const newText = c.text || '';
           fullText += newText;
-          
+
           if (c.candidates?.[0]?.groundingMetadata?.groundingChunks) {
-              const chunks = c.candidates[0].groundingMetadata.groundingChunks;
-              chunks.forEach((gc: any) => {
-                  if (gc.web?.uri) {
-                      const title = gc.web.title || new URL(gc.web.uri).hostname;
-                      if (!sources.some(s => s.uri === gc.web.uri)) {
-                          sources.push({ uri: gc.web.uri, title });
-                      }
-                  }
-              });
+            const chunks = c.candidates[0].groundingMetadata.groundingChunks;
+            chunks.forEach((gc: any) => {
+              if (gc.web?.uri) {
+                const title = gc.web.title || new URL(gc.web.uri).hostname;
+                if (!sources.some(s => s.uri === gc.web.uri)) {
+                  sources.push({ uri: gc.web.uri, title });
+                }
+              }
+            });
           }
 
           setMessages(prev => {
             const updatedMessages = [...prev];
             const lastIdx = updatedMessages.length - 1;
-            updatedMessages[lastIdx] = { 
-                ...updatedMessages[lastIdx], 
-                content: fullText,
-                sources: sources.length > 0 ? sources : undefined
+            updatedMessages[lastIdx] = {
+              ...updatedMessages[lastIdx],
+              content: fullText,
+              sources: sources.length > 0 ? sources : undefined
             };
             return updatedMessages;
           });
@@ -261,7 +260,7 @@ Respond in ${language === 'fr' ? 'French' : 'English'}.
       const responseStream = await chatRef.current.sendMessageStream({ message: userInput });
       setIsLoading(false);
       setMessages(prev => [...prev, { role: 'model', content: '' }]);
-      
+
       let fullText = '';
       let sources: { uri: string; title: string }[] = [];
 
@@ -271,49 +270,49 @@ Respond in ${language === 'fr' ? 'French' : 'English'}.
         fullText += newText;
 
         if (c.candidates?.[0]?.groundingMetadata?.groundingChunks) {
-            const chunks = c.candidates[0].groundingMetadata.groundingChunks;
-            chunks.forEach((gc: any) => {
-                if (gc.web?.uri) {
-                    const title = gc.web.title || new URL(gc.web.uri).hostname;
-                    if (!sources.some(s => s.uri === gc.web.uri)) {
-                        sources.push({ uri: gc.web.uri, title });
-                    }
-                }
-            });
+          const chunks = c.candidates[0].groundingMetadata.groundingChunks;
+          chunks.forEach((gc: any) => {
+            if (gc.web?.uri) {
+              const title = gc.web.title || new URL(gc.web.uri).hostname;
+              if (!sources.some(s => s.uri === gc.web.uri)) {
+                sources.push({ uri: gc.web.uri, title });
+              }
+            }
+          });
         }
 
         setMessages(prev => {
-            const updatedMessages = [...prev];
-            const lastIdx = updatedMessages.length - 1;
-            updatedMessages[lastIdx] = { 
-                ...updatedMessages[lastIdx], 
-                content: fullText,
-                sources: sources.length > 0 ? sources : undefined
-            };
-            return updatedMessages;
+          const updatedMessages = [...prev];
+          const lastIdx = updatedMessages.length - 1;
+          updatedMessages[lastIdx] = {
+            ...updatedMessages[lastIdx],
+            content: fullText,
+            sources: sources.length > 0 ? sources : undefined
+          };
+          return updatedMessages;
         });
       }
     } catch (err) {
-        console.error("Gemini API error:", err);
-        setError(t('insights.errorFetching'));
-        setIsLoading(false);
+      console.error("Gemini API error:", err);
+      setError(t('insights.errorFetching'));
+      setIsLoading(false);
     }
   };
-  
+
   const renderContent = () => {
     if (transactions.length < 3) {
       return (
         <div className="flex flex-col items-center justify-center h-full p-4 text-center">
-            <SparklesIcon className="w-10 h-10 text-zinc-300 dark:text-zinc-700 mb-2" />
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">{t('insights.notEnoughData')}</p>
+          <SparklesIcon className="w-10 h-10 text-zinc-300 dark:text-zinc-700 mb-2" />
+          <p className="text-zinc-500 dark:text-zinc-400 text-sm">{t('insights.notEnoughData')}</p>
         </div>
       );
     }
-    
+
     if (error) {
-        return <p className="text-center text-red-500 dark:text-red-400 text-sm p-4">{error}</p>;
+      return <p className="text-center text-red-500 dark:text-red-400 text-sm p-4">{error}</p>;
     }
-    
+
     if (messages.length === 0 && isLoading) {
       return (
         <div className="flex flex-col items-center justify-center h-full">
@@ -333,7 +332,7 @@ Respond in ${language === 'fr' ? 'French' : 'English'}.
           </AnimatePresence>
           {isLoading && messages.length > 0 && (
             <div className="flex justify-start">
-                <span className="px-4 py-2 rounded-2xl bg-zinc-200 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 rounded-bl-none text-xs animate-pulse">...</span>
+              <span className="px-4 py-2 rounded-2xl bg-zinc-200 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 rounded-bl-none text-xs animate-pulse">...</span>
             </div>
           )}
           <div ref={messagesEndRef} />
