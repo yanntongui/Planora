@@ -95,7 +95,7 @@ const generateInstallments = (totalAmount: number, dueDateStr: string): Installm
 
 export const FinanceProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { user } = useAuth();
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
 
   // App State - now persisted in memory and synced to DB, not localStorage
   const [appState, setAppState] = useState<AppState>({
@@ -276,6 +276,95 @@ export const FinanceProvider: React.FC<{ children: ReactNode }> = ({ children })
           createdAt: now.toISOString()
         });
       }
+
+      // 3. Category Drift (+20% vs average)
+      const currentMonth = now.getMonth();
+      const currentYear = now.getFullYear();
+
+      categories.forEach(cat => {
+        const currentMonthSpent = transactions
+          .filter(tx => {
+            const d = new Date(tx.date);
+            return d.getMonth() === currentMonth && d.getFullYear() === currentYear && tx.category === cat.id && tx.type === 'expense';
+          })
+          .reduce((sum, tx) => sum + tx.amount, 0);
+
+        const pastMonths = transactions.filter(tx => {
+          const d = new Date(tx.date);
+          return (d.getMonth() !== currentMonth || d.getFullYear() !== currentYear) && tx.category === cat.id && tx.type === 'expense';
+        });
+
+        if (pastMonths.length > 0) {
+          const oldestDate = new Date(Math.min(...pastMonths.map(tx => new Date(tx.date).getTime())));
+          const monthDiff = (currentYear - oldestDate.getFullYear()) * 12 + (currentMonth - oldestDate.getMonth());
+          const avgPast = pastMonths.reduce((sum, tx) => sum + tx.amount, 0) / Math.max(1, monthDiff);
+
+          if (currentMonthSpent > avgPast * 1.2 && currentMonthSpent > 50) {
+            newAlerts.push({
+              id: `drift-${cat.id}`,
+              type: 'warning',
+              title: language === 'fr' ? 'Dérive budgétaire' : 'Budget Drift',
+              message: language === 'fr'
+                ? `Attention, vos dépenses en "${t(cat.name)}" sont 20% au-dessus de votre moyenne.`
+                : `Careful, your spending on "${t(cat.name)}" is 20% higher than your average.`,
+              createdAt: now.toISOString()
+            });
+          }
+        }
+      });
+
+      // 4. Duplicate Detection
+      const recentTxs = transactions.slice(0, 20);
+      for (let i = 0; i < recentTxs.length; i++) {
+        for (let j = i + 1; j < recentTxs.length; j++) {
+          const tx1 = recentTxs[i];
+          const tx2 = recentTxs[j];
+          const sameAmount = tx1.amount === tx2.amount;
+          const sameType = tx1.type === tx2.type;
+          const timeDiff = Math.abs(new Date(tx1.date).getTime() - new Date(tx2.date).getTime());
+          const logicSame = sameAmount && sameType && timeDiff < 24 * 60 * 60 * 1000;
+
+          if (logicSame) {
+            const label1 = tx1.label.toLowerCase();
+            const label2 = tx2.label.toLowerCase();
+            if (label1.includes(label2) || label2.includes(label1) || label1 === label2) {
+              newAlerts.push({
+                id: `duplicate-${tx1.id}-${tx2.id}`,
+                type: 'info',
+                title: language === 'fr' ? 'Doublon potentiel' : 'Potential Duplicate',
+                message: language === 'fr'
+                  ? `Deux transactions identiques pour "${tx1.label}" détectées à moins de 24h.`
+                  : `Two identical transactions for "${tx1.label}" detected within 24h.`,
+                actionLabel: language === 'fr' ? 'Vérifier' : 'Check',
+                createdAt: now.toISOString()
+              });
+            }
+          }
+        }
+      }
+
+      // 5. Subscription Optimization
+      const subKeywords = {
+        video: ['netflix', 'disney', 'amazon prime', 'hbo', 'canal+', 'youtube premium'],
+        music: ['spotify', 'deezer', 'apple music', 'tidal'],
+        cloud: ['icloud', 'google one', 'dropbox', 'onedrive']
+      };
+
+      const subs = recurringTransactions.map(s => ({ ...s, labelLower: s.label.toLowerCase() }));
+      Object.entries(subKeywords).forEach(([group, keywords]) => {
+        const found = subs.filter(s => keywords.some(k => s.labelLower.includes(k)));
+        if (found.length > 1) {
+          newAlerts.push({
+            id: `optimize-sub-${group}`,
+            type: 'info',
+            title: language === 'fr' ? 'Optimisation abonnements' : 'Subscription Optimization',
+            message: language === 'fr'
+              ? `Vous avez ${found.length} abonnements de type "${group}". Pouvez-vous en supprimer un ?`
+              : `You have ${found.length} subscriptions for "${group}". Could you cancel one?`,
+            createdAt: now.toISOString()
+          });
+        }
+      });
 
       // Update state with unique alerts
       updateCurrentFinancialState(prev => {
