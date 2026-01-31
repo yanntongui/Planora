@@ -1,7 +1,9 @@
 
-import React, { createContext, useContext, useState, ReactNode, useCallback, useEffect } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 import { LanguageContextType, Currency } from '../types';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import enTranslations from '../locales/en.json';
+import frTranslations from '../locales/fr.json';
 
 type Language = 'en' | 'fr';
 
@@ -10,28 +12,10 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useLocalStorage<Language>('prompt-finance-language', 'fr');
   const [currency, setCurrency] = useLocalStorage<Currency>('prompt-finance-currency', 'EUR');
-  const [translations, setTranslations] = useState<{ [key in Language]?: any }>({});
-
-  useEffect(() => {
-    const fetchTranslations = async () => {
-      try {
-        const [enRes, frRes] = await Promise.all([
-          fetch('/locales/en.json'),
-          fetch('/locales/fr.json'),
-        ]);
-        if (!enRes.ok || !frRes.ok) {
-          throw new Error('Failed to fetch translation files');
-        }
-        const enData = await enRes.json();
-        const frData = await frRes.json();
-        setTranslations({ en: enData, fr: frData });
-      } catch (error) {
-        console.error("Failed to load translations.", error);
-      }
-    };
-
-    fetchTranslations();
-  }, []);
+  const [translations] = useState<{ [key in Language]: any }>({
+    en: enTranslations,
+    fr: frTranslations
+  });
 
   const t = useCallback((key: string, replacements?: { [key: string]: string | number }) => {
     const langTranslations = translations[language];
@@ -41,14 +25,14 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
     const keys = key.split('.');
     let result: any = langTranslations;
-    
+
     for (const k of keys) {
       if (typeof result !== 'object' || result === null || result[k] === undefined) {
         return key; // Key path not found, return the key itself
       }
       result = result[k];
     }
-    
+
     let strResult = String(result);
 
     if (replacements) {
@@ -59,7 +43,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
     return strResult;
   }, [language, translations]);
-  
+
   const locale = language === 'fr' ? 'fr-FR' : 'en-US';
 
   const value: LanguageContextType = { language, setLanguage, t, locale, currency, setCurrency };
