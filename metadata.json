@@ -1,0 +1,8 @@
+{
+  "name": "Planora - The Financial Command Palette",
+  "description": "A personal finance application with a 'No-UI' philosophy. The entire user experience revolves around a central command bar for entering financial transactions and managing budgets through natural language.",
+  "requestFramePermissions": [
+    "microphone",
+    "camera"
+  ]
+}

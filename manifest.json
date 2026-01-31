@@ -1,0 +1,23 @@
+
+{
+  "name": "PROMPT - The Financial Command Palette",
+  "short_name": "PROMPT",
+  "description": "Track finances with speed and simplicity using a command palette interface.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#9333ea",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/google-finance.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/png/google-finance.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

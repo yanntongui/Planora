@@ -1,0 +1,545 @@
+
+{
+  "balance": {
+    "current": "Current Balance"
+  },
+  "commandBar": {
+    "placeholder": "Enter a command...",
+    "parsing": "Thinking...",
+    "scanning": "Scanning receipt...",
+    "receiptScanned": "Receipt scanned! Review the amount.",
+    "receiptError": "Could not read receipt. Try again.",
+    "budgetCreationMode": "Budget creation in progress...",
+    "listening": "Listening..."
+  },
+  "onboarding": {
+      "title": "Welcome! Let's get started.",
+      "subtitle": "{count} of {total} steps completed",
+      "tryIt": "Try:",
+      "stepExpenseTitle": "Log your first expense",
+      "stepExpenseDesc": "Type '25 lunch' or click Try to track spending instantly.",
+      "stepIncomeTitle": "Record an income",
+      "stepIncomeDesc": "Add your salary or side hustle to see your balance grow.",
+      "stepBudgetTitle": "Create a budget",
+      "stepBudgetDesc": "Set a limit for a category or event to stay on track.",
+      "stepGoalTitle": "Set a financial goal",
+      "stepGoalDesc": "Save for something special like a vacation or new gadget."
+  },
+  "history": {
+    "title": "Recent History",
+    "empty": "Your transaction history will appear here.",
+    "showMore": "Show More",
+    "deleteAriaLabel": "Delete transaction",
+    "editAriaLabel": "Edit transaction",
+    "searchPlaceholder": "Search transactions...",
+    "filter": "Filter",
+    "typeAll": "All Types",
+    "typeIncome": "Income",
+    "typeExpense": "Expense",
+    "categoryAll": "All Categories",
+    "noResults": "No transactions found matching your criteria.",
+    "deletedMessage": "Transaction deleted.",
+    "undo": "Undo"
+  },
+  "shoppingList": {
+    "title": "Shopping List",
+    "itemCostLabel": "\"{item}\" cost:",
+    "addButton": "Add",
+    "empty": "Your shopping list is empty. Type \"create list [name]\" to start.",
+    "createFirstList": "Create your first list",
+    "planned": "Planned",
+    "actual": "Actual",
+    "difference": "Difference",
+    "toBuy": "To Buy",
+    "purchased": "Purchased",
+    "deleteItemAriaLabel": "Delete item",
+    "totalPlanned": "Total Planned",
+    "totalActual": "Total Actual",
+    "newListPrompt": "Enter the name for your new shopping list:",
+    "newListPlaceholder": "New list name...",
+    "deleteConfirmation": "Are you sure you want to delete the list \"{name}\" and all its items?",
+    "deleteListTitle": "Delete List",
+    "newListButton": "New List",
+    "addItemButton": "Add Item",
+    "itemNamePlaceholder": "Item name...",
+    "itemAmountPlaceholder": "Amount",
+    "saveButton": "Save",
+    "cancelButton": "Cancel"
+  },
+  "budgets": {
+    "title": "Budgets",
+    "overBudget": "{amount} over budget",
+    "remaining": "{amount} remaining",
+    "daysLeft": "{count} days left",
+    "empty": "No budgets created. Type \"budget Vacation 1000\" to create one."
+  },
+  "goals": {
+    "title": "Financial Goals",
+    "toGo": "{amount} to go",
+    "empty": "No goals created. Type \"goal New Car 20000\" to create one.",
+    "targetDate": "Target",
+    "monthlyTarget": "Monthly",
+    "status": "Status",
+    "statusAhead": "Ahead",
+    "statusOnTrack": "On Track",
+    "statusBehind": "Behind"
+  },
+  "insights": {
+    "title": "Financial Insights",
+    "loading": "Analyzing your finances...",
+    "notEnoughData": "Not enough transaction data to generate insights. Keep tracking your spending!",
+    "errorFetching": "Could not fetch insights at this time. Please try again later.",
+    "errorApiKey": "API Key is not configured. Insights are unavailable.",
+    "chatPlaceholder": "Ask a question about your finances..."
+  },
+  "reports": {
+      "title": "Monthly Reports",
+      "empty": "Reports are generated automatically at the end of each month. Check back later!",
+      "emptyHint": "Tip: Keep adding transactions regularly to get meaningful insights.",
+      "generatedAt": "Generated on",
+      "savingsRate": "Savings Rate",
+      "executiveSummary": "Executive Summary",
+      "behavioralAnalysis": "Behavioral Analysis",
+      "coachingTips": "Coaching Tips"
+  },
+  "graph": {
+    "title": "Analytics",
+    "empty": "No data available for this period.",
+    "timeFilter_this_month": "This Month",
+    "timeFilter_last_30": "Last 30 Days",
+    "timeFilter_last_90": "Last 3 Months",
+    "timeFilter_year_to_date": "Year to Date",
+    "timeFilter_all_time": "All Time",
+    "viewDistribution": "Distribution",
+    "viewTrend": "Trend"
+  },
+  "forecast": {
+    "title": "Financial Forecast",
+    "optimistic": "Optimistic",
+    "realistic": "Realistic",
+    "conservative": "Conservative",
+    "projectedBalance": "Projected Balance",
+    "trend": "Trend over {months} months"
+  },
+  "recurring": {
+    "title": "Recurring Transactions",
+    "empty": "No recurring transactions set up. Type 'every month 25 Netflix' to create one.",
+    "nextPayment": "Next",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "deleteAriaLabel": "Delete recurring transaction"
+  },
+  "planning": {
+    "title": "Monthly Plan",
+    "plannedIncome": "Planned Income",
+    "totalAssigned": "Total Assigned",
+    "leftToAssign": "Left to Assign",
+    "breakdownTitle": "Assigned Breakdown",
+    "monthlyBudgets": "Monthly Budgets",
+    "recurringExpenses": "Recurring Expenses",
+    "plannedSavings": "Planned Savings",
+    "noPlan": "Start by setting your income with `plan income 3000`."
+  },
+  "ruleBudget": {
+    "title": "Rule-Based Budget",
+    "noRule": "Set a budget rule to get started, e.g., `set rule 50/30/20`.",
+    "currentMonthIncome": "Current Month's Income",
+    "needs": "Needs",
+    "wants": "Wants",
+    "savings": "Savings"
+  },
+  "tableBudget": {
+    "title": "Detailed Budget Table",
+    "empty": "No sub-categories planned. Use `plan subcategory [name] [amount] for [category]` to start.",
+    "category": "Category",
+    "subCategory": "Sub-category",
+    "planned": "Planned",
+    "actual": "Actual",
+    "differenceAmount": "Difference ({currency})",
+    "differencePercent": "Difference (%)",
+    "status": "Status",
+    "actions": "Actions",
+    "deleteAriaLabel": "Delete budget line",
+    "editAriaLabel": "Edit amount",
+    "addLine": "Add Line",
+    "save": "Save",
+    "cancel": "Cancel",
+    "namePlaceholder": "e.g., Netflix",
+    "amountPlaceholder": "Amount",
+    "total": "Total",
+    "regenerate": "Reset Rows",
+    "regenerateTooltip": "Reset all rows to match the selected rule defaults",
+    "adjust": "Adjust Amounts",
+    "adjustTooltip": "Proportionally scale existing amounts to fit the rule",
+    "adjustSuccess": "Amounts adjusted successfully!",
+    "target": "Target",
+    "currentPlan": "Planned",
+    "resetTitle": "Reset Budget Rows",
+    "resetMessage": "This will overwrite all your custom sub-category adjustments with the defaults for the selected rule. Are you sure?",
+    "resetConfirm": "Reset to Defaults",
+    "applyPlan": "Apply & Save Budget",
+    "planSaved": "Budget plan saved and activated!"
+  },
+  "budgetCreation": {
+    "title": "Create a Monthly Budget",
+    "incomePrompt": "What is your planned monthly income?",
+    "incomePlaceholder": "e.g., 3000",
+    "nextButton": "Next",
+    "cancelButton": "Cancel",
+    "methodPrompt": "Choose a budgeting method",
+    "methodBasedOnIncome": "Based on a planned income of {income}:",
+    "method503020": "50/30/20 Rule",
+    "method603010": "60/30/10 Rule",
+    "method8020": "80/20 Rule",
+    "methodManual": "Manual (Zero-Based)",
+    "methodAi": "AI Suggestion",
+    "generateButton": "Generate Budget",
+    "generatingBudget": "Analyzing transactions to generate your budget...",
+    "subCatRent": "Rent/Housing",
+    "subCatFood": "Groceries",
+    "subCatTransport": "Transport",
+    "subCatHealth": "Health",
+    "subCatDining": "Dining Out",
+    "subCatShopping": "Shopping",
+    "subCatEntertainment": "Entertainment",
+    "subCatSavings": "General Savings"
+  },
+  "sidebar": {
+    "newConversation": "New Budget",
+    "history": "History",
+    "budgets": "My Budgets",
+    "openMenu": "Open menu",
+    "user": "Guest User",
+    "dashboard": "Dashboard",
+    "monthlyIncome": "Monthly Income",
+    "monthlyExpenses": "Monthly Expenses",
+    "netSavings": "Net Savings",
+    "goalsPreview": "Goals Preview",
+    "deleteConversationTitle": "Delete Budget",
+    "deleteConversationMessage": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
+    "confirmButton": "Confirm",
+    "cancelButton": "Cancel",
+    "help": "Help & Commands",
+    "searchPlaceholder": "Search budgets...",
+    "active": "Active",
+    "archived": "Archived",
+    "rename": "Rename",
+    "smartRename": "Smart Rename",
+    "smartRenameSuccess": "Budget renamed to \"{name}\"",
+    "duplicate": "Duplicate",
+    "archive": "Archive",
+    "unarchive": "Restore",
+    "delete": "Delete"
+  },
+  "settings": {
+    "title": "Settings",
+    "tabs": {
+      "general": "General",
+      "profile": "Profile",
+      "data": "Data",
+      "shortcuts": "Shortcuts",
+      "categories": "Categories"
+    },
+    "theme": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "language": "Language",
+    "currency": "Currency",
+    "userName": "Your Name",
+    "avatar": "Avatar",
+    "aiPersona": "AI Coach Personality",
+    "privacyMode": "Privacy Mode",
+    "privacyModeDesc": "Blur balance on dashboard",
+    "persona": {
+        "benevolent": "Benevolent (Default)",
+        "strict": "Strict & Direct",
+        "humorous": "Humorous & Witty"
+    },
+    "personaDesc": {
+        "benevolent": "Gentle, reassuring, and focuses on positive reinforcement.",
+        "strict": "Military-style. Focuses on discipline, facts, and cutting costs.",
+        "humorous": "Uses sarcasm and jokes to make finance less boring."
+    },
+    "userNamePlaceholder": "Enter your name...",
+    "dataManagement": "Data Management",
+    "exportDescription": "Download all data for the current conversation as a JSON backup.",
+    "exportButton": "Backup Data (JSON)",
+    "exportCsvDescription": "Download transaction history for spreadsheet analysis.",
+    "exportCsvButton": "Export History (CSV)",
+    "importDescription": "Restore data from a JSON backup file. This will replace the current conversation data.",
+    "importButton": "Import Data",
+    "dangerZone": "Danger Zone",
+    "resetDescription": "This will permanently delete all transactions, budgets, goals, and lists in the current conversation.",
+    "resetButton": "Reset Conversation Data",
+    "resetConfirmationTitle": "Reset Conversation",
+    "resetConfirmationMessage": "Are you sure you want to reset all data for this conversation? This action is irreversible.",
+    "shortcuts": "Custom Shortcuts",
+    "shortcutsDescription": "Create shortcuts to execute long commands quickly. Type 'alias [key] [command]' to add one.",
+    "noShortcuts": "No shortcuts defined yet.",
+    "categoriesTitle": "Custom Categories",
+    "categoryNamePlaceholder": "Category name...",
+    "toast": {
+      "themeSet": "Theme set to {theme}",
+      "languageSet": "Language set to {language}",
+      "currencySet": "Currency set to {currency}",
+      "userNameSet": "User name updated",
+      "dataExported": "Data exported successfully!",
+      "dataImported": "Data imported successfully!",
+      "importFailed": "Failed to import data. Invalid file.",
+      "dataReset": "Conversation data has been reset.",
+      "aliasAdded": "Shortcut '{key}' added."
+    }
+  },
+  "footer": {
+    "title": "Planora - The Financial Command Palette",
+    "instructions": "Type commands like \"20 coffee\", \"5*3 lunch\", \"insights\", or \"create list Groceries\" to get started."
+  },
+  "categories": {
+    "foodAndDining": "Food & Dining",
+    "transport": "Transport",
+    "shopping": "Shopping",
+    "entertainment": "Entertainment",
+    "billsAndUtilities": "Bills & Utilities",
+    "health": "Health",
+    "income": "Income",
+    "general": "General"
+  },
+  "debt": {
+    "title": "Debt & Loan Tracker",
+    "empty": "No debts or loans recorded. Try 'debt from John 50' or 'loan to Jane 20'.",
+    "youOwe": "You Owe",
+    "owedToYou": "Owed to You",
+    "summaryYouOwe": "I Owe",
+    "summaryOwedToYou": "To Receive",
+    "netPosition": "Net Total",
+    "remaining": "{amount} remaining",
+    "paid": "Paid",
+    "recordPayment": "Record Payment",
+    "markAsPaid": "Mark as Paid",
+    "deleteConfirmation": "Are you sure you want to delete this item? This cannot be undone.",
+    "paymentAmount": "Payment Amount",
+    "savePayment": "Save",
+    "cancel": "Cancel",
+    "from": "from",
+    "to": "to"
+  },
+  "commands": {
+    "addExpense": { "name": "Add Expense", "description": "e.g., 25 sushi", "example": "25 sushi" },
+    "addIncome": { "name": "Add Income", "description": "e.g., + 1500 salary", "example": "+ 1500 salary" },
+    "showShopping": { "name": "Show Shopping List", "description": "View and manage your shopping lists", "example": "list" },
+    "showBudgets": { "name": "Show Budgets", "description": "View your event and monthly budgets", "example": "budgets" },
+    "showGoals": { "name": "Show Goals", "description": "View your financial goals", "example": "goals" },
+    "showGraph": { "name": "Show Expense Graph", "description": "Visualize your spending breakdown", "example": "graph" },
+    "showForecast": { "name": "Show Forecast", "description": "View future balance projections (3-12 months)", "example": "forecast" },
+    "showReports": { "name": "Show Monthly Reports", "description": "View automated end-of-month financial reports", "example": "reports" },
+    "showInsights": { "name": "Show AI Insights", "description": "Ask questions about your finances", "example": "insights" },
+    "showRecurring": { "name": "Show Recurring", "description": "View recurring transactions and subscriptions", "example": "recurring" },
+    "showPlanning": { "name": "Show Monthly Plan", "description": "View your monthly income and assignments", "example": "plan" },
+    "showDebts": { "name": "Show Debt Tracker", "description": "Track money you owe and is owed to you", "example": "debt" },
+    "createBudget": { "name": "Create Budget", "description": "e.g., budget vacation 500", "example": "budget vacation 500" },
+    "createGoal": { "name": "Create Goal", "description": "e.g., goal 'New Laptop' 1200", "example": "goal \"New Laptop\" 1200" },
+    "startMonthlyBudget": { "name": "Start Monthly Budget", "description": "Create a detailed monthly budget plan", "example": "monthly budget" },
+    "showEducation": { "name": "Education & Resources", "description": "Learn how to manage your finances", "example": "learn" },
+    "showProfile": { "name": "My Financial Profile", "description": "View my scores and progress", "example": "profile" },
+    "help": { "name": "Help & Commands", "description": "View a list of all available commands", "example": "help" }
+  },
+  "education": {
+      "title": "Financial Education",
+      "tabForYou": "For You",
+      "tabLibrary": "Library",
+      "tabGlossary": "Glossary",
+      "recommended": "Recommended for you",
+      "paths": "Learning Paths",
+      "readTime": "{min} min read",
+      "takeAction": "Take Action",
+      "markAsRead": "Mark as Read",
+      "search": "Search...",
+      "noResults": "No results found.",
+      "basics": {
+          "budget101": {
+              "title": "The 50/30/20 Budget",
+              "desc": "The simplest way to manage your money without feeling deprived.",
+              "content": "### The 50/30/20 Rule\n\nThis simple method divides your monthly net income into three categories:\n\n1. **50% for Needs**: Rent, bills, groceries, transport. These are vital expenses.\n2. **30% for Wants**: Dining out, shopping, hobbies. This makes life enjoyable.\n3. **20% for Savings**: Debt repayment, emergency fund, investments.\n\n**Why it works?**\nIt automates your decisions and ensures you always save a little while enjoying life."
+          }
+      },
+      "saving": {
+          "emergency": {
+              "title": "The Emergency Fund",
+              "desc": "Why and how to save 3-6 months of expenses.",
+              "content": "### The Safety Net\n\nBefore investing or spending on expensive luxuries, priority is safety. An emergency fund is money set aside (ideally in an accessible account) to cover the unexpected: job loss, car repair, health issue.\n\n**How much?**\nAim for $1000 to start, then build up to 3 months of living expenses."
+          }
+      },
+      "debt": {
+          "snowball": {
+              "title": "The Snowball Method",
+              "desc": "Pay off debt efficiently by starting small.",
+              "content": "### The Debt Snowball\n\nThis psychological method for paying off debt involves:\n1. Listing all debts from smallest to largest balance (ignoring interest rates).\n2. Paying minimums on everything except the smallest.\n3. Throwing all extra money at the smallest debt until it's gone.\n4. Rolling that payment into the next smallest debt.\n\nThis creates quick wins and builds momentum!"
+          }
+      },
+      "events": {
+          "wedding": {
+              "title": "Stress-Free Wedding Budget",
+              "desc": "Planning the big day without starting married life in debt.",
+              "content": "### Funding an Event\n\nA wedding (or any big event) needs financial prep.\n1. **Set a total cap** before looking at vendors.\n2. **Prioritize**: What matters most? Venue? Food? Music? Put the budget there.\n3. **Create a dedicated budget** in the app to track deposits."
+          }
+      },
+      "psychology": {
+          "impulse": {
+              "title": "Mastering Impulse Buying",
+              "desc": "Understanding the 24-hour rule to avoid regret.",
+              "content": "### The 24-Hour Rule\n\nIf you see something you want to buy (that isn't a vital need), wait 24 hours.\n\nOften, the urge is emotional (stress, boredom, marketing). After sleeping on it, the urge usually fades. If you still want it and it fits the budget, go ahead!"
+          }
+      },
+      "path": {
+          "stability": {
+              "title": "Road to Stability",
+              "desc": "The basics to stop living paycheck to paycheck."
+          },
+          "debtfree": {
+              "title": "Debt Free Journey",
+              "desc": "A battle plan to reclaim your freedom."
+          }
+      }
+  },
+  "glossary": {
+      "apr": { "term": "APR", "def": "Annual Percentage Rate. The yearly cost of borrowing money, including interest and fees." },
+      "asset": { "term": "Asset", "def": "Something you own that has value (cash, house, investments)." },
+      "compound": { "term": "Compound Interest", "def": "Interest calculated on the initial principal AND the accumulated interest. It's how savings grow exponentially." },
+      "inflation": { "term": "Inflation", "def": "The rate at which prices for goods and services rise, decreasing purchasing power." },
+      "liability": { "term": "Liability", "def": "Something you owe (debt, loans)." },
+      "networth": { "term": "Net Worth", "def": "The value of all your assets minus all your liabilities." },
+      "zerobased": { "term": "Zero-Based Budget", "def": "A method where every dollar has a job (expense or savings), so Income - Expenses = 0." }
+  },
+  "date": {
+    "today": "Today",
+    "yesterday": "Yesterday"
+  },
+  "dashboard": {
+    "viewAll": "View all"
+  },
+  "budgetDetail": {
+    "backButton": "Back to Dashboard",
+    "transactionsTitle": "Transactions in this Budget",
+    "empty": "No transactions have been assigned to this budget yet.",
+    "spentOf": "spent of",
+    "remaining": "remaining",
+    "editButton": "Edit",
+    "deleteButton": "Delete",
+    "saveButton": "Save",
+    "cancelButton": "Cancel",
+    "deleteConfirmationTitle": "Delete Budget",
+    "deleteConfirmationMessage": "Are you sure you want to delete the \"{name}\" budget? This will not delete its transactions but will unlink them from this budget."
+  },
+  "goalDetail": {
+    "backButton": "Back to Goals",
+    "contributionsTitle": "Contributions to this Goal",
+    "empty": "No contributions have been made to this goal yet.",
+    "savedOf": "saved of",
+    "remaining": "remaining",
+    "targetDate": "Target Date",
+    "editButton": "Edit",
+    "deleteButton": "Delete",
+    "saveButton": "Save",
+    "cancelButton": "Cancel",
+    "deleteConfirmationTitle": "Delete Goal",
+    "deleteConfirmationMessage": "Are you sure you want to delete the \"{name}\" goal? This will not delete its contributions but will unlink them from this goal.",
+    "withdrawButton": "Withdraw",
+    "withdrawPlaceholder": "Amount to withdraw...",
+    "withdrawAction": "Confirm",
+    "quickAdd": "Quick Add",
+    "idealTrajectory": "Ideal Trajectory",
+    "actualSavings": "Actual Savings",
+    "requiredSavingsTitle": "Stay on Track",
+    "requiredSavingsDesc": "To reach your goal by {date}, you need to save {amount} per month.",
+    "onTrackMessage": "Great job! You are ahead of schedule."
+  },
+  "simulation": {
+      "bannerTitle": "Simulation Mode",
+      "bannerDesc": "You are currently editing a temporary copy of your finances. Apply to save, Discard to revert.",
+      "apply": "Apply Changes",
+      "discard": "Discard",
+      "started": "Simulation started. Try 'add 5000 bonus'.",
+      "alreadyActive": "Already in simulation mode."
+  },
+  "landing": {
+    "heroTitle": "Manage money at the speed of thought.",
+    "heroSubtitle": "Stop clicking through endless forms. Use natural language commands to track expenses, set budgets, and analyze your wealth.",
+    "getStarted": "Get Started",
+    "liveDemo": "Live Demo",
+    "badge": "The Financial Command Palette",
+    "featuresTitle": "Designed for efficiency",
+    "featuresSubtitle": "Everything you need, nothing you don't. Pure productivity.",
+    "readyTitle": "Ready to start?",
+    "joinNow": "Join Now",
+    "footer": "© {year} Planora Finance. Built with ♥ and AI."
+  },
+  "features": {
+    "aiParserTitle": "AI-Powered Parser",
+    "aiParserDesc": "Type 'Lunch 25 with Tom' and let our AI handle the categorization, tagging, and date parsing instantly.",
+    "analyticsTitle": "Real-time Analytics",
+    "analyticsDesc": "Visualize your cash flow with interactive charts. Spot trends and leaks in your budget immediately.",
+    "voiceTitle": "Voice Assistant",
+    "voiceDesc": "Talk to your finances. Use Gemini Live to add transactions or ask complex questions about your spending.",
+    "privacyTitle": "Private by Design",
+    "privacyDesc": "Your financial data is stored locally on your device. No external servers, no tracking, complete privacy.",
+    "budgetingTitle": "Flexible Budgeting",
+    "budgetingDesc": "Support for 50/30/20, Zero-Based Budgeting, and custom rules. Adapt the system to your lifestyle."
+  },
+  "auth": {
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Enter your credentials to access your dashboard",
+    "signupTitle": "Create your account",
+    "signupSubtitle": "Start mastering your finances with Planora today",
+    "emailLabel": "EMAIL",
+    "passwordLabel": "PASSWORD",
+    "nameLabel": "FULL NAME",
+    "signInButton": "Sign In",
+    "signUpButton": "Sign Up",
+    "getStartedButton": "Get Started",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "createOne": "Create one",
+    "signInLink": "Sign in",
+    "demoUser": "John Doe",
+    "demoEmail": "name@example.com"
+  },
+  "help": {
+      "title": "Help & Commands",
+      "subtitle": "All possible actions in your command palette.",
+      "category": {
+          "transactions": "Transactions & Debts",
+          "planning": "Planning & Goals",
+          "view": "Views & Analysis",
+          "other": "Other"
+      },
+      "footerHint": "Tip: You can use math expressions like '5*12' in your amounts."
+  },
+  "profile": {
+      "maturity": {
+          "beginner": "Beginner",
+          "intermediate": "Intermediate",
+          "advanced": "Advanced"
+      },
+      "score": {
+          "maturity": "Maturity",
+          "discipline": "Discipline",
+          "stability": "Stability"
+      },
+      "stress": {
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High"
+      },
+      "stressLevel": "Financial Stress Level",
+      "primaryFocus": "Primary Focus",
+      "nextSteps": "Next Steps",
+      "disclaimer": "These AI-generated scores help track your progress and do not constitute financial advice.",
+      "tip": {
+          "improveDiscipline": "Your budget discipline is low. Try creating realistic budgets for major expense categories.",
+          "buildEmergency": "Your stability score suggests building a stronger emergency fund.",
+          "reduceStress": "High stress is often linked to debt load. Check the 'Snowball Method' in Education.",
+          "invest": "Great profile! Consider exploring long-term investment strategies."
+      }
+  }
+}
