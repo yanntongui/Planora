@@ -13,9 +13,9 @@ export const suggestCategory = async (label: string): Promise<string> => {
     console.error("API key is not available for category suggestion.");
     return 'general'; // Fallback
   }
-  
-  const ai = new GoogleGenAI({ apiKey: API_KEY });
-  
+
+  const ai = new GoogleGenAI({ apiKey: API_KEY, dangerouslyAllowBrowser: true });
+
   const prompt = `Based on the transaction label "${label}", what is the most appropriate category?`;
 
   try {

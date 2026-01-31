@@ -32,14 +32,14 @@ export type ParsedCommand =
   | { action: 'START_SIMULATION'; payload: { command?: string } }
   | { action: 'OPEN_HELP'; payload: {} }
   | { action: 'UNKNOWN'; payload: {} };
-  
+
 async function parseWithAI(input: string): Promise<ParsedCommand> {
   const apiKey = process.env.API_KEY;
   if (!apiKey) {
     console.error("API key is not available.");
     return { action: 'UNKNOWN', payload: {} };
   }
-  const ai = new GoogleGenAI({ apiKey });
+  const ai = new GoogleGenAI({ apiKey, dangerouslyAllowBrowser: true });
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
   const yesterdayISO = yesterday.toISOString().split('T')[0];
@@ -52,10 +52,10 @@ async function parseWithAI(input: string): Promise<ParsedCommand> {
         responseSchema: {
           type: Type.OBJECT,
           properties: {
-            type: { type: Type.STRING, enum: ['expense', 'income'], description: 'Type of the transaction.'},
-            amount: { type: Type.NUMBER, description: 'The numerical amount of the transaction.'},
+            type: { type: Type.STRING, enum: ['expense', 'income'], description: 'Type of the transaction.' },
+            amount: { type: Type.NUMBER, description: 'The numerical amount of the transaction.' },
             label: { type: Type.STRING, description: 'A concise description of the transaction.' },
-            category: { type: Type.STRING, description: `The most appropriate category. Choose one of these exact values: 'foodAndDining', 'transport', 'shopping', 'entertainment', 'billsAndUtilities', 'health', 'income', 'general'.`},
+            category: { type: Type.STRING, description: `The most appropriate category. Choose one of these exact values: 'foodAndDining', 'transport', 'shopping', 'entertainment', 'billsAndUtilities', 'health', 'income', 'general'.` },
             date: { type: Type.STRING, nullable: true, description: `The date in YYYY-MM-DD format. If the user says "yesterday", use ${yesterdayISO}. If no date is mentioned, this field should be null.` }
           },
           required: ["type", "amount", "label", "category"]
@@ -64,7 +64,7 @@ async function parseWithAI(input: string): Promise<ParsedCommand> {
     });
     const parsedJson = JSON.parse(response.text.trim()) as AiParsedTransaction;
     if (parsedJson.amount && parsedJson.label && parsedJson.type) {
-        return { action: 'ADD_TRANSACTION', payload: parsedJson };
+      return { action: 'ADD_TRANSACTION', payload: parsedJson };
     }
     return { action: 'UNKNOWN', payload: {} };
   } catch (error) {
@@ -79,23 +79,23 @@ async function parseWithAI(input: string): Promise<ParsedCommand> {
  * Returns NaN if invalid.
  */
 function safeMathEval(expression: string): number {
-    try {
-        // Remove everything except numbers and math operators
-        const cleanExpr = expression.replace(/[^0-9\+\-\*\/\.\(\)\s]/g, '');
-        if (!cleanExpr.trim()) return NaN;
-        // Function constructor is safer than eval, but still requires care.
-        // We strictly filtered input so it should be fine.
-        return new Function(`return (${cleanExpr})`)();
-    } catch (e) {
-        return NaN;
-    }
+  try {
+    // Remove everything except numbers and math operators
+    const cleanExpr = expression.replace(/[^0-9\+\-\*\/\.\(\)\s]/g, '');
+    if (!cleanExpr.trim()) return NaN;
+    // Function constructor is safer than eval, but still requires care.
+    // We strictly filtered input so it should be fine.
+    return new Function(`return (${cleanExpr})`)();
+  } catch (e) {
+    return NaN;
+  }
 }
 
 export const parseCommand = async (input: string, language: 'en' | 'fr'): Promise<ParsedCommand> => {
   const cleanInput = input.trim().toLowerCase();
   const isFrench = language === 'fr';
   let match;
-  
+
   const keywords = {
     monthly_budget_cmd: isFrench ? ['budget mensuel', 'monthly budget'] : ['monthly budget', 'budget mensuel'],
     list: isFrench ? ['liste', 'list'] : ['list'],
@@ -115,7 +115,7 @@ export const parseCommand = async (input: string, language: 'en' | 'fr'): Promis
     help: isFrench ? ['aide', 'help', 'commandes', 'commands'] : ['help', 'commands', 'aide'],
     education: isFrench ? ['éducation', 'apprendre', 'cours', 'education', 'learn'] : ['education', 'learn', 'course'],
     profile: isFrench ? ['profil', 'profile', 'mon profil', 'my profile'] : ['profile', 'my profile', 'me'],
-    
+
     debt_from_for: { debt: isFrench ? ['dette'] : ['debt'], from: isFrench ? ['de'] : ['from'], for: isFrench ? ['pour'] : ['for'] },
     loan_to_for: { loan: isFrench ? ['prêt'] : ['loan'], to: isFrench ? ['à'] : ['to'], for: isFrench ? ['pour'] : ['for'] },
     pay_to: { pay: isFrench ? ['payer'] : ['pay'], to: isFrench ? ['à'] : ['to'] },
@@ -158,7 +158,7 @@ export const parseCommand = async (input: string, language: 'en' | 'fr'): Promis
   const simulateRegex = new RegExp(`^(${keywords.simulate.join('|')})(?:\\s+(.+))?$`, 'i');
   match = input.trim().match(simulateRegex);
   if (match) {
-      return { action: 'START_SIMULATION', payload: { command: match[2] } };
+    return { action: 'START_SIMULATION', payload: { command: match[2] } };
   }
 
   // Alias creation command: "alias [key] [command]"
@@ -169,11 +169,11 @@ export const parseCommand = async (input: string, language: 'en' | 'fr'): Promis
   const debtRegex = new RegExp(`^(${keywords.debt_from_for.debt.join('|')})\\s+(${keywords.debt_from_for.from.join('|')})\\s+(.+?)\\s+(\\d+(?:\\.\\d{1,2})?)(?:\\s+(${keywords.debt_from_for.for.join('|')})\\s+(.+))?$`, 'i');
   match = input.trim().match(debtRegex);
   if (match) return { action: 'ADD_DEBT', payload: { type: 'debt', person: match[3], totalAmount: parseFloat(match[4]) } };
-  
+
   const loanRegex = new RegExp(`^(${keywords.loan_to_for.loan.join('|')})\\s+(${keywords.loan_to_for.to.join('|')})\\s+(.+?)\\s+(\\d+(?:\\.\\d{1,2})?)(?:\\s+(${keywords.loan_to_for.for.join('|')})\\s+(.+))?$`, 'i');
   match = input.trim().match(loanRegex);
   if (match) return { action: 'ADD_DEBT', payload: { type: 'loan', person: match[3], totalAmount: parseFloat(match[4]) } };
-  
+
   const payDebtRegex = new RegExp(`^(${keywords.pay_to.pay.join('|')})\\s+(\\d+(?:\\.\\d{1,2})?)\\s+(${keywords.pay_to.to.join('|')})\\s+(.+)`, 'i');
   match = input.trim().match(payDebtRegex);
   if (match) return { action: 'RECORD_DEBT_PAYMENT', payload: { amount: parseFloat(match[2]), person: match[4], type: 'payment' } };
@@ -188,8 +188,8 @@ export const parseCommand = async (input: string, language: 'en' | 'fr'): Promis
 
   const subCategoryRegex = new RegExp(`^(${keywords.plan_subcategory_for.plan.join('|')})\\s+(${keywords.plan_subcategory_for.subcategory.join('|')})\\s+(.+?)\\s+(\\d+(?:\\.\\d{1,2})?)\\s+(${keywords.plan_subcategory_for.for.join('|')})\\s+(.+)`, 'i');
   match = input.trim().match(subCategoryRegex);
-  if (match) return { action: 'ADD_SUB_CATEGORY', payload: { name: match[3], amount: parseFloat(match[4]), category: match[6] }};
-  
+  if (match) return { action: 'ADD_SUB_CATEGORY', payload: { name: match[3], amount: parseFloat(match[4]), category: match[6] } };
+
   const setRuleRegex = new RegExp(`^(${keywords.set_rule.set.join('|')})\\s+(${keywords.set_rule.rule.join('|')})\\s+(\\d{1,2})\\/(\\d{1,2})\\/(\\d{1,2})`, 'i');
   match = cleanInput.match(setRuleRegex);
   if (match) {
@@ -208,10 +208,10 @@ export const parseCommand = async (input: string, language: 'en' | 'fr'): Promis
   const monthlyBudgetRegex = new RegExp(`^(${keywords.monthly_budget.monthly.join('|')})\\s+(${keywords.monthly_budget.budget.join('|')})\\s+(\\w+)\\s+(\\d+(?:\\.\\d{1,2})?)`, 'i');
   match = input.trim().match(monthlyBudgetRegex);
   if (match) {
-      const categoryAliasMap: { [key: string]: string } = { food: 'foodAndDining', transportation: 'transport', bills: 'billsAndUtilities', alimentation: 'foodAndDining', factures: 'billsAndUtilities' };
-      const categoryInput = match[3].toLowerCase();
-      const category = categoryAliasMap[categoryInput] || categoryInput;
-      return { action: 'ADD_MONTHLY_BUDGET', payload: { category, limit: parseFloat(match[4]) } };
+    const categoryAliasMap: { [key: string]: string } = { food: 'foodAndDining', transportation: 'transport', bills: 'billsAndUtilities', alimentation: 'foodAndDining', factures: 'billsAndUtilities' };
+    const categoryInput = match[3].toLowerCase();
+    const category = categoryAliasMap[categoryInput] || categoryInput;
+    return { action: 'ADD_MONTHLY_BUDGET', payload: { category, limit: parseFloat(match[4]) } };
   }
 
   const recurringRegex = new RegExp(`^(${keywords.every.every.join('|')})\\s+(${keywords.every.week.join('|')}|${keywords.every.month.join('|')}|${keywords.every.year.join('|')})\\s+(\\d+(?:\\.\\d{1,2})?)\\s+(.+)`, 'i');
@@ -220,21 +220,21 @@ export const parseCommand = async (input: string, language: 'en' | 'fr'): Promis
     const freqInput = match[2].toLowerCase();
     const frequency = freqInput === keywords.every.week[0] ? 'weekly' : freqInput === keywords.every.month[0] ? 'monthly' : 'yearly';
     const isIncome = ['salary', 'paycheck', 'salaire'].some(kw => match[4].toLowerCase().includes(kw));
-    return { action: 'ADD_RECURRING_TRANSACTION', payload: { amount: parseFloat(match[3]), label: match[4], frequency, type: isIncome ? 'income' : 'expense' }};
+    return { action: 'ADD_RECURRING_TRANSACTION', payload: { amount: parseFloat(match[3]), label: match[4], frequency, type: isIncome ? 'income' : 'expense' } };
   }
 
   const contributionRegex = new RegExp(`^(${keywords.save_for.save.join('|')})\\s+(\\d+(?:\\.\\d{1,2})?)\\s+(${keywords.save_for.for.join('|')})\\s+(.+)`, 'i');
   match = input.trim().match(contributionRegex);
-  if (match) return { action: 'ADD_CONTRIBUTION', payload: { amount: parseFloat(match[2]), goalName: match[4] }};
+  if (match) return { action: 'ADD_CONTRIBUTION', payload: { amount: parseFloat(match[2]), goalName: match[4] } };
 
   const withdrawRegex = new RegExp(`^(${keywords.withdraw_from.withdraw.join('|')})\\s+(\\d+(?:\\.\\d{1,2})?)\\s+(${keywords.withdraw_from.from.join('|')})\\s+(.+)`, 'i');
   match = input.trim().match(withdrawRegex);
-  if (match) return { action: 'WITHDRAW_FROM_GOAL', payload: { amount: parseFloat(match[2]), goalName: match[4] }};
-  
+  if (match) return { action: 'WITHDRAW_FROM_GOAL', payload: { amount: parseFloat(match[2]), goalName: match[4] } };
+
   const shoppingRegex = /^\+\s(.+?)\s(\d+(?:\.\d{1,2})?)$/;
   match = input.trim().match(shoppingRegex);
   if (match) return { action: 'ADD_SHOPPING_ITEM', payload: { text: match[1], plannedAmount: parseFloat(match[2]) } };
-  
+
   const goalRegex = new RegExp(`^(${keywords.goal_by.goal.join('|')})\\s+(?:\"(.*?)\"|(\\S+))\\s+(\\d+(?:\\.\\d{1,2})?)(?:\\s+(${keywords.goal_by.by.join('|')})\\s+(\\d{1,2}\\/\\d{4}|\\d{4}-\\d{2}-\\d{2}))?`, 'i');
   match = input.trim().match(goalRegex);
   if (match) {
@@ -252,12 +252,12 @@ export const parseCommand = async (input: string, language: 'en' | 'fr'): Promis
     }
     return { action: 'ADD_GOAL', payload: { name, target, targetDate } };
   }
-  
+
   const escapedIncomeKeywords = keywords.income.in.map(kw => kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
   const incomeRegex = new RegExp(`^(${escapedIncomeKeywords.join('|')})\\s?(\\d+(?:\\.\\d{1,2})?)\\s+(.+)`, 'i');
   match = input.trim().match(incomeRegex);
   if (match) return { action: 'ADD_TRANSACTION', payload: { type: 'income', amount: parseFloat(match[2]), label: match[3] } };
-  
+
   const budgetRegex = /^budget\s(.+?)\s(\d+(?:\.\d{1,2})?)/i;
   match = input.trim().match(budgetRegex);
   if (match) return { action: 'ADD_BUDGET', payload: { name: match[1], limit: parseFloat(match[2]), type: 'event' } };
@@ -270,17 +270,17 @@ export const parseCommand = async (input: string, language: 'en' | 'fr'): Promis
   if (match) {
     const amountPart = match[1];
     const labelPart = match[2];
-    
+
     // Attempt to evaluate math
     const evaluatedAmount = safeMathEval(amountPart);
-    
+
     if (!isNaN(evaluatedAmount) && evaluatedAmount > 0) {
-        // Regex to capture budget tag including Unicode characters (accents) and hyphens
-        const budgetTagRegex = /#([\w\u00C0-\uFFFF-]+)/;
-        const budgetMatch = labelPart.match(budgetTagRegex);
-        const budgetName = budgetMatch ? budgetMatch[1] : undefined;
-        const finalLabel = budgetName ? labelPart.replace(budgetTagRegex, '').trim() : labelPart;
-        return { action: 'ADD_TRANSACTION', payload: { type: 'expense', amount: evaluatedAmount, label: budgetName ? `${finalLabel} #${budgetName}`: finalLabel } };
+      // Regex to capture budget tag including Unicode characters (accents) and hyphens
+      const budgetTagRegex = /#([\w\u00C0-\uFFFF-]+)/;
+      const budgetMatch = labelPart.match(budgetTagRegex);
+      const budgetName = budgetMatch ? budgetMatch[1] : undefined;
+      const finalLabel = budgetName ? labelPart.replace(budgetTagRegex, '').trim() : labelPart;
+      return { action: 'ADD_TRANSACTION', payload: { type: 'expense', amount: evaluatedAmount, label: budgetName ? `${finalLabel} #${budgetName}` : finalLabel } };
     }
   }
 

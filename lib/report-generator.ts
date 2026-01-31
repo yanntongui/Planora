@@ -11,11 +11,11 @@ export const generateMonthlyReportData = async (
     persona: AiPersona,
     language: 'en' | 'fr'
 ): Promise<MonthlyReport> => {
-    
+
     // 1. Data Aggregation
     const startOfMonth = new Date(year, month, 1);
     const endOfMonth = new Date(year, month + 1, 0, 23, 59, 59);
-    
+
     const monthTransactions = transactions.filter(tx => {
         const d = new Date(tx.date);
         return d >= startOfMonth && d <= endOfMonth;
@@ -24,7 +24,7 @@ export const generateMonthlyReportData = async (
     const income = monthTransactions
         .filter(t => t.type === 'income')
         .reduce((sum, t) => sum + t.amount, 0);
-        
+
     const expenses = monthTransactions
         .filter(t => t.type === 'expense')
         .reduce((sum, t) => sum + t.amount, 0);
@@ -49,12 +49,12 @@ export const generateMonthlyReportData = async (
 
     // Create the union of all categories involved (planned OR actual)
     const allCategoryIds = new Set([...Object.keys(actualsByCategory), ...Object.keys(plannedByCategory)]);
-    
+
     const breakdown: ReportCategoryBreakdown[] = Array.from(allCategoryIds).map(catId => {
         const planned = plannedByCategory[catId] || 0;
         const actual = actualsByCategory[catId] || 0;
         const diff = planned - actual;
-        
+
         let status: 'ok' | 'warning' | 'over' = 'ok';
         if (actual > planned && planned > 0) {
             const percentOver = (actual / planned) - 1;
@@ -76,8 +76,8 @@ export const generateMonthlyReportData = async (
 
     if (apiKey) {
         try {
-            const ai = new GoogleGenAI({ apiKey });
-            
+            const ai = new GoogleGenAI({ apiKey, dangerouslyAllowBrowser: true });
+
             // Prepare context for AI
             const contextData = {
                 period: `${month + 1}/${year}`,
@@ -85,8 +85,8 @@ export const generateMonthlyReportData = async (
                 expenses,
                 netSavings,
                 savingsRate,
-                topExpenses: breakdown.sort((a,b) => b.actual - a.actual).slice(0, 5),
-                worstOverBudget: breakdown.filter(b => b.difference < 0).sort((a,b) => a.difference - b.difference).slice(0, 3),
+                topExpenses: breakdown.sort((a, b) => b.actual - a.actual).slice(0, 5),
+                worstOverBudget: breakdown.filter(b => b.difference < 0).sort((a, b) => a.difference - b.difference).slice(0, 3),
                 persona
             };
 

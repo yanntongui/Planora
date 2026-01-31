@@ -23,7 +23,7 @@ export const suggestBudget = async (
     return [];
   }
 
-  const ai = new GoogleGenAI({ apiKey: API_KEY });
+  const ai = new GoogleGenAI({ apiKey: API_KEY, dangerouslyAllowBrowser: true });
 
   const transactionData = transactions
     .filter(t => t.type === 'expense')
@@ -76,16 +76,16 @@ export const suggestBudget = async (
     });
 
     const suggestedCategories = JSON.parse(response.text.trim()) as Omit<SubCategory, 'id'>[];
-    
+
     // Ensure total doesn't exceed income
     let totalPlanned = suggestedCategories.reduce((sum, cat) => sum + cat.plannedAmount, 0);
     if (totalPlanned > income) {
-        // Simple scaling down if AI overshoots.
-        const scalingFactor = income / totalPlanned;
-        return suggestedCategories.map(cat => ({
-            ...cat,
-            plannedAmount: Math.floor(cat.plannedAmount * scalingFactor)
-        }));
+      // Simple scaling down if AI overshoots.
+      const scalingFactor = income / totalPlanned;
+      return suggestedCategories.map(cat => ({
+        ...cat,
+        plannedAmount: Math.floor(cat.plannedAmount * scalingFactor)
+      }));
     }
 
     return suggestedCategories;

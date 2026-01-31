@@ -31,7 +31,7 @@ export const scanReceipt = async (file: File): Promise<string | null> => {
 
     try {
         const base64Data = await fileToGenerativePart(file);
-        const ai = new GoogleGenAI({ apiKey: API_KEY });
+        const ai = new GoogleGenAI({ apiKey: API_KEY, dangerouslyAllowBrowser: true });
 
         // Prompt designed to output a command string compatible with our parser
         const prompt = `
@@ -58,7 +58,7 @@ export const scanReceipt = async (file: File): Promise<string | null> => {
         });
 
         const text = response.text?.trim();
-        
+
         if (!text || text === 'ERROR') {
             return null;
         }
