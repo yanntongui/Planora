@@ -1,7 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback, useMemo } from 'react';
 import { GoogleGenAI } from "@google/genai";
-import { Transaction, ShoppingItem, ShoppingList, Budget, Goal, RecurringTransaction, MonthlyPlan, BudgetingRule, SubCategory, FinanceContextType, ActiveWidget, BudgetCreationState, BudgetMethod, Conversation, Debt, Category, AiPersona, MonthlyReport, Installment, EducationState, UserProfile, Bucket } from '../types'; // Added Bucket
+import { Transaction, ShoppingItem, ShoppingList, Budget, Goal, RecurringTransaction, MonthlyPlan, BudgetingRule, SubCategory, FinanceContextType, ActiveWidget, BudgetCreationState, BudgetMethod, Conversation, Debt, Category, AiPersona, MonthlyReport, Installment, EducationState, UserProfile, Bucket, CoachAlert } from '../types'; // Added Bucket
 import { getDefaultSubCategories } from '../lib/rule-mapper';
 import { suggestBudget } from '../lib/budget-suggester';
 import { generateMonthlyReportData } from '../lib/report-generator';
@@ -62,7 +62,8 @@ export const initialFinancialState = {
   inspectedGoalId: null as string | null,
   inspectedReportId: null as string | null,
   categories: DEFAULT_CATEGORIES,
-  educationState: { readResourceIds: [], activePathId: null } as EducationState
+  educationState: { readResourceIds: [], activePathId: null } as EducationState,
+  coachAlerts: [] as CoachAlert[]
 };
 
 type FinancialState = typeof initialFinancialState;
@@ -212,7 +213,82 @@ export const FinanceProvider: React.FC<{ children: ReactNode }> = ({ children })
     return appState.financialData[activeConversationId] || initialFinancialState;
   }, [activeConversationId, appState.financialData, isSimulating, simulationState]);
 
-  const { userName, userAvatar, aiPersona, isPrivacyMode, transactions, shoppingLists, activeShoppingListId, budgets, goals, recurringTransactions, monthlyPlan, budgetingRule, subCategories, activeWidget, budgetCreationState, debts, monthlyReports, aliases, inspectedBudgetId, inspectedGoalId, inspectedReportId, categories, educationState, userProfile } = currentFinancialState;
+  const { userName, userAvatar, aiPersona, isPrivacyMode, transactions, shoppingLists, activeShoppingListId, budgets, goals, recurringTransactions, monthlyPlan, budgetingRule, subCategories, activeWidget, budgetCreationState, debts, monthlyReports, aliases, inspectedBudgetId, inspectedGoalId, inspectedReportId, categories, educationState, userProfile, coachAlerts } = currentFinancialState;
+
+  // Proactive Alerts Logic
+  useEffect(() => {
+    if (!activeConversationId || isSimulating) return;
+
+    const generateAlerts = () => {
+      const newAlerts: CoachAlert[] = [];
+      const now = new Date();
+      const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+      // 1. Imminent Budget Overrun (80%)
+      budgets.forEach(b => {
+        const ratio = b.currentSpent / b.limit;
+        if (ratio >= 0.8 && ratio < 1) {
+          newAlerts.push({
+            id: `budget-warning-${b.id}`,
+            type: 'warning',
+            title: language === 'fr' ? 'Budget presque atteint' : 'Budget nearly reached',
+            message: language === 'fr'
+              ? `Vous avez utilisé ${Math.round(ratio * 100)}% de votre budget "${b.name || b.category}".`
+              : `You have used ${Math.round(ratio * 100)}% of your "${b.name || b.category}" budget.`,
+            createdAt: now.toISOString()
+          });
+        } else if (ratio >= 1) {
+          newAlerts.push({
+            id: `budget-over-${b.id}`,
+            type: 'warning',
+            title: language === 'fr' ? 'Budget dépassé' : 'Budget exceeded',
+            message: language === 'fr'
+              ? `Le budget "${b.name || b.category}" est dépassé.`
+              : `The "${b.name || b.category}" budget has been exceeded.`,
+            createdAt: now.toISOString()
+          });
+        }
+      });
+
+      // 2. High Daily Spend
+      const todayTotal = transactions
+        .filter(tx => new Date(tx.date) >= startOfToday && tx.type === 'expense')
+        .reduce((sum, tx) => sum + tx.amount, 0);
+
+      const lastWeek = new Date(now);
+      lastWeek.setDate(lastWeek.getDate() - 7);
+      const lastWeekTotal = transactions
+        .filter(tx => {
+          const d = new Date(tx.date);
+          return d >= lastWeek && d < startOfToday && tx.type === 'expense';
+        })
+        .reduce((sum, tx) => sum + tx.amount, 0);
+      const avgDaily = lastWeekTotal / 7;
+
+      if (todayTotal > avgDaily * 2 && todayTotal > 20) {
+        newAlerts.push({
+          id: 'high-daily-spend',
+          type: 'info',
+          title: language === 'fr' ? 'Dépense quotidienne élevée' : 'High daily spend',
+          message: language === 'fr'
+            ? `Vos dépenses aujourd'hui sont nettement supérieures à votre moyenne habituelle.`
+            : `Your spending today is significantly higher than your usual average.`,
+          createdAt: now.toISOString()
+        });
+      }
+
+      // Update state with unique alerts
+      updateCurrentFinancialState(prev => {
+        const existingAlertIds = new Set(prev.coachAlerts.map(a => a.id));
+        const filteredNewAlerts = newAlerts.filter(a => !existingAlertIds.has(a.id));
+        if (filteredNewAlerts.length === 0) return prev;
+        return { ...prev, coachAlerts: [...prev.coachAlerts, ...filteredNewAlerts] };
+      });
+    };
+
+    const timer = setTimeout(generateAlerts, 2000);
+    return () => clearTimeout(timer);
+  }, [transactions, budgets, goals, activeConversationId, language, isSimulating, updateCurrentFinancialState]);
 
   // Actions wrapped with DB calls
   const addTransaction = useCallback((tx: Omit<Transaction, 'id'>) => {
@@ -291,6 +367,13 @@ export const FinanceProvider: React.FC<{ children: ReactNode }> = ({ children })
     setBalance(calculatedBalance);
   }, [transactions]);
 
+  const dismissCoachAlert = useCallback((id: string) => {
+    updateCurrentFinancialState(prev => ({
+      ...prev,
+      coachAlerts: prev.coachAlerts.filter(a => a.id !== id)
+    }));
+  }, [updateCurrentFinancialState]);
+
   // Placeholder implementations for less critical features to save space, but keeping signature
   const updateTransactionCategory = (id: string, cat: string) => updateTransaction(id, { category: cat });
   const setActiveWidget = (w: ActiveWidget) => updateCurrentFinancialState(prev => ({ ...prev, activeWidget: w, inspectedBudgetId: null, inspectedGoalId: null, inspectedReportId: null }));
@@ -301,7 +384,7 @@ export const FinanceProvider: React.FC<{ children: ReactNode }> = ({ children })
   // Conversations
   const createConversation = async () => {
     if (!user) return;
-    const newConv = { id: crypto.randomUUID(), user_id: user.id, name: `Budget ${appState.conversations.length + 1}`, status: 'active' };
+    const newConv = { id: crypto.randomUUID(), user_id: user.id, name: `Budget ${appState.conversations.length + 1}`, status: 'active' as const };
     const { data, error } = await dbCreateConv(newConv);
     if (data) {
       setAppState(prev => ({
@@ -459,7 +542,8 @@ export const FinanceProvider: React.FC<{ children: ReactNode }> = ({ children })
     exportData, exportCsv, importData, resetCurrentConversation,
     debts, addDebt, recordDebtPayment, markDebtAsPaid, deleteDebt, updateDebt, toggleDebtInstallment, updateDebtInstallment,
     monthlyReports, aliases, addAlias, deleteAlias, categories, addCategory, deleteCategory,
-    isSimulating, startSimulation, commitSimulation, cancelSimulation, isLiveAssistantOpen, setLiveAssistantOpen, isHelpOpen, setHelpOpen, duplicateConversation, archiveConversation, educationState, markResourceRead
+    isSimulating, startSimulation, commitSimulation, cancelSimulation, isLiveAssistantOpen, setLiveAssistantOpen, isHelpOpen, setHelpOpen, duplicateConversation, archiveConversation, educationState, markResourceRead,
+    coachAlerts, dismissCoachAlert
   };
 
   return <FinanceContext.Provider value={value}>{children}</FinanceContext.Provider>;

@@ -9,14 +9,19 @@ import PiggyBankIcon from './icons/PiggyBankIcon';
 import TargetIcon from './icons/TargetIcon';
 import { motion } from 'framer-motion';
 import OnboardingWidget from './widgets/OnboardingWidget';
+import CoachAlerts from './CoachAlerts';
 
 const StatCard: React.FC<{ title: string; amount: number; icon: React.ReactElement }> = ({ title, amount, icon }) => {
     const { locale, currency } = useLanguage();
     const formatter = new Intl.NumberFormat(locale, { style: 'currency', currency });
 
     return (
-        <div className="bg-zinc-100 dark:bg-zinc-900/50 p-4 rounded-lg flex items-center gap-4 overflow-hidden">
-            <div className="text-2xl flex-shrink-0">{icon}</div>
+        <div
+            className="bg-zinc-100 dark:bg-zinc-900/50 p-4 rounded-lg flex items-center gap-4 overflow-hidden"
+            role="status"
+            aria-label={`${title}: ${formatter.format(amount)}`}
+        >
+            <div className="text-2xl flex-shrink-0" aria-hidden="true">{icon}</div>
             <div className="min-w-0">
                 <p className="text-sm text-zinc-500 dark:text-zinc-400 truncate">{title}</p>
                 <p className="text-xl font-bold text-zinc-900 dark:text-zinc-100 truncate">{formatter.format(amount)}</p>
@@ -60,7 +65,7 @@ const MiniGoalCard: React.FC<{ goal: Goal }> = ({ goal }) => {
     const formatter = new Intl.NumberFormat(locale, { style: 'currency', currency, notation: 'compact' });
 
     return (
-         <div className="bg-zinc-100 dark:bg-zinc-900/50 p-3 rounded-lg">
+        <div className="bg-zinc-100 dark:bg-zinc-900/50 p-3 rounded-lg">
             <div className="flex justify-between items-baseline mb-1 text-sm">
                 <h4 className="font-semibold text-zinc-800 dark:text-zinc-100 truncate pr-2 flex-grow">{goal.name}</h4>
                 <p className="text-zinc-500 dark:text-zinc-400 flex-shrink-0">
@@ -90,7 +95,7 @@ const DashboardView: React.FC = () => {
 
     const topBudgets = useMemo(() => budgets.slice(0, 2), [budgets]);
     const topGoals = useMemo(() => goals.slice(0, 2), [goals]);
-    
+
     const containerVariants = {
         hidden: { opacity: 0 },
         visible: {
@@ -105,12 +110,16 @@ const DashboardView: React.FC = () => {
     };
 
     return (
-        <motion.div 
+        <motion.div
             className="space-y-6"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
         >
+            <motion.div variants={itemVariants}>
+                <CoachAlerts />
+            </motion.div>
+
             <motion.div variants={itemVariants}>
                 <OnboardingWidget />
             </motion.div>
@@ -133,7 +142,7 @@ const DashboardView: React.FC = () => {
                 </motion.div>
             )}
 
-             {topGoals.length > 0 && (
+            {topGoals.length > 0 && (
                 <motion.div variants={itemVariants}>
                     <div className="flex justify-between items-center mb-2">
                         <h3 className="text-lg font-semibold">{t('goals.title')}</h3>

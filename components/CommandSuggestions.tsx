@@ -29,18 +29,20 @@ const CommandSuggestions: React.FC<CommandSuggestionsProps> = ({ isOpen, suggest
           transition={{ duration: 0.2, ease: 'easeOut' }}
           className="absolute top-full left-0 w-full bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded-lg shadow-lg mt-2 overflow-hidden z-10"
         >
-          <ul className="max-h-80 overflow-y-auto">
+          <ul id="command-suggestions" role="listbox" className="max-h-80 overflow-y-auto">
             {suggestions.map((suggestion, index) => (
               <li
                 key={suggestion.name}
+                id={`suggestion-${index}`}
+                role="option"
+                aria-selected={index === activeIndex}
                 ref={index === activeIndex ? activeItemRef : null}
                 onMouseDown={(e) => {
                   e.preventDefault(); // Prevent input from losing focus
                   onSelect(suggestion);
                 }}
-                className={`flex items-center gap-4 px-4 py-3 cursor-pointer ${
-                  index === activeIndex ? 'bg-purple-100 dark:bg-purple-900/50' : 'hover:bg-zinc-100 dark:hover:bg-zinc-800'
-                }`}
+                className={`flex items-center gap-4 px-4 py-3 cursor-pointer ${index === activeIndex ? 'bg-purple-100 dark:bg-purple-900/50' : 'hover:bg-zinc-100 dark:hover:bg-zinc-800'
+                  }`}
               >
                 <div className="w-6 h-6 flex items-center justify-center text-zinc-500 dark:text-zinc-400">
                   {suggestion.icon}

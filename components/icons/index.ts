@@ -1,3 +1,4 @@
+export { default as AlertCircleIcon } from "./AlertCircleIcon";
 export { default as AlertTriangleIcon } from "./AlertTriangleIcon";
 export { default as ArchiveIcon } from "./ArchiveIcon";
 export { default as ArrowDownCircleIcon } from "./ArrowDownCircleIcon";
