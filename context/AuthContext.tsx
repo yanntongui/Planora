@@ -1,19 +1,16 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
+import { supabase } from '../lib/supabase';
+import { User, Session } from '@supabase/supabase-js';
+import { upsertUserProfile } from '../lib/database';
 
 interface AuthContextType {
   user: User | null;
+  session: Session | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  signup: (name: string, email: string, password: string) => Promise<void>;
-  logout: () => void;
+  login: (email: string) => Promise<void>;
+  verifyOtp: (email: string, token: string) => Promise<void>;
+  logout: () => Promise<void>;
   error: string | null;
 }
 
@@ -21,71 +18,87 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Simulate checking local storage for session
-    const storedUser = localStorage.getItem('prompt-finance-user');
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser));
-      } catch (e) {
-        localStorage.removeItem('prompt-finance-user');
+    // Check active sessions and sets the user
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setIsLoading(false);
+    });
+
+    // Listen for changes on auth state (logged in, signed out, etc.)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setIsLoading(false);
+
+      if (session?.user) {
+        // Ensure profile exists
+        // Cast to any to avoid type mismatch with incomplete TS definitions vs DB schema
+        const profileData: any = {
+          id: session.user.id,
+          user_name: session.user.user_metadata.full_name || session.user.email?.split('@')[0] || 'Utilisateur',
+          updated_at: new Date().toISOString()
+        };
+        await upsertUserProfile(profileData);
       }
-    }
-    setIsLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async (email: string) => {
     setIsLoading(true);
     setError(null);
-    // Simulate network delay
-    setTimeout(() => {
-        // Mock validation - allow any email with @ and 6+ char password
-        if (email.includes('@') && password.length >= 6) {
-             const mockUser = {
-                id: 'demo-user-id',
-                name: email.split('@')[0],
-                email: email
-            };
-            setUser(mockUser);
-            localStorage.setItem('prompt-finance-user', JSON.stringify(mockUser));
-            setIsLoading(false);
-        } else {
-            setError("Invalid credentials (mock). Use any email and 6+ char password.");
-            setIsLoading(false);
+    try {
+      const { error } = await supabase.auth.signInWithOtp({
+        email,
+        options: {
+          emailRedirectTo: window.location.origin,
         }
-    }, 800);
+      });
+      if (error) throw error;
+      // alert('Check your email for the login link!'); 
+      // Note: Alert removed to rely on UI feedback in LoginView
+    } catch (e: any) {
+      setError(e.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const signup = async (name: string, email: string, password: string) => {
+  const verifyOtp = async (email: string, token: string) => {
     setIsLoading(true);
     setError(null);
-    setTimeout(() => {
-        if (email.includes('@') && password.length >= 6) {
-            const mockUser = {
-                id: crypto.randomUUID(),
-                name: name,
-                email: email
-            };
-            setUser(mockUser);
-            localStorage.setItem('prompt-finance-user', JSON.stringify(mockUser));
-            setIsLoading(false);
-        } else {
-            setError("Invalid details. Password must be 6+ chars.");
-            setIsLoading(false);
-        }
-    }, 800);
+    try {
+      const { error } = await supabase.auth.verifyOtp({
+        email,
+        token,
+        type: 'email'
+      });
+      if (error) throw error;
+    } catch (e: any) {
+      setError(e.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const logout = async () => {
-    setUser(null);
-    localStorage.removeItem('prompt-finance-user');
+    setIsLoading(true);
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      setError(error.message);
+    }
+    setIsLoading(false);
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, isLoading, login, signup, logout, error }}>
+    <AuthContext.Provider value={{ user, session, isAuthenticated: !!user, isLoading, login, verifyOtp, logout, error }}>
       {children}
     </AuthContext.Provider>
   );

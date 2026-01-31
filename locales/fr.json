@@ -1,4 +1,3 @@
-
 {
   "balance": {
     "current": "Solde Actuel"
@@ -13,17 +12,17 @@
     "listening": "Écoute..."
   },
   "onboarding": {
-      "title": "Bienvenue ! Commençons.",
-      "subtitle": "{count} sur {total} étapes complétées",
-      "tryIt": "Essayer :",
-      "stepExpenseTitle": "Ajouter une première dépense",
-      "stepExpenseDesc": "Tapez '25 dej' ou cliquez sur Essayer pour tracer une dépense.",
-      "stepIncomeTitle": "Enregistrer un revenu",
-      "stepIncomeDesc": "Ajoutez votre salaire ou une rentrée d'argent.",
-      "stepBudgetTitle": "Créer un budget",
-      "stepBudgetDesc": "Fixez une limite pour une catégorie ou un événement.",
-      "stepGoalTitle": "Définir un objectif",
-      "stepGoalDesc": "Épargnez pour un projet spécial comme un voyage."
+    "title": "Bienvenue ! Commençons.",
+    "subtitle": "{count} sur {total} étapes complétées",
+    "tryIt": "Essayer :",
+    "stepExpenseTitle": "Ajouter une première dépense",
+    "stepExpenseDesc": "Tapez '25 dej' ou cliquez sur Essayer pour tracer une dépense.",
+    "stepIncomeTitle": "Enregistrer un revenu",
+    "stepIncomeDesc": "Ajoutez votre salaire ou une rentrée d'argent.",
+    "stepBudgetTitle": "Créer un budget",
+    "stepBudgetDesc": "Fixez une limite pour une catégorie ou un événement.",
+    "stepGoalTitle": "Définir un objectif",
+    "stepGoalDesc": "Épargnez pour un projet spécial comme un voyage."
   },
   "history": {
     "title": "Historique Récent",
@@ -93,14 +92,14 @@
     "chatPlaceholder": "Posez une question sur vos finances..."
   },
   "reports": {
-      "title": "Rapports Mensuels",
-      "empty": "Les rapports sont générés automatiquement à la fin de chaque mois. Revenez plus tard !",
-      "emptyHint": "Astuce : Continuez à ajouter des transactions régulièrement pour obtenir des analyses pertinentes.",
-      "generatedAt": "Généré le",
-      "savingsRate": "Taux d'Épargne",
-      "executiveSummary": "Synthèse",
-      "behavioralAnalysis": "Analyse Comportementale",
-      "coachingTips": "Conseils du Coach"
+    "title": "Rapports Mensuels",
+    "empty": "Les rapports sont générés automatiquement à la fin de chaque mois. Revenez plus tard !",
+    "emptyHint": "Astuce : Continuez à ajouter des transactions régulièrement pour obtenir des analyses pertinentes.",
+    "generatedAt": "Généré le",
+    "savingsRate": "Taux d'Épargne",
+    "executiveSummary": "Synthèse",
+    "behavioralAnalysis": "Analyse Comportementale",
+    "coachingTips": "Conseils du Coach"
   },
   "graph": {
     "title": "Analytique",
@@ -252,14 +251,14 @@
     "privacyMode": "Mode Discret",
     "privacyModeDesc": "Flouter le solde sur le tableau de bord",
     "persona": {
-        "benevolent": "Bienveillant (Défaut)",
-        "strict": "Strict & Direct",
-        "humorous": "Humoristique & Décalé"
+      "benevolent": "Bienveillant (Défaut)",
+      "strict": "Strict & Direct",
+      "humorous": "Humoristique & Décalé"
     },
     "personaDesc": {
-        "benevolent": "Gentil, rassurant et axé sur le renforcement positif.",
-        "strict": "Style militaire. Focus sur la discipline, les faits et la réduction des coûts.",
-        "humorous": "Utilise le sarcasme et des blagues pour rendre la finance moins ennuyeuse."
+      "benevolent": "Gentil, rassurant et axé sur le renforcement positif.",
+      "strict": "Style militaire. Focus sur la discipline, les faits et la réduction des coûts.",
+      "humorous": "Utilise le sarcasme et des blagues pour rendre la finance moins ennuyeuse."
     },
     "userNamePlaceholder": "Entrez votre nom...",
     "dataManagement": "Gestion des Données",
@@ -325,91 +324,184 @@
     "to": "à"
   },
   "commands": {
-    "addExpense": { "name": "Ajouter une Dépense", "description": "ex: 25 sushi", "example": "25 sushi" },
-    "addIncome": { "name": "Ajouter un Revenu", "description": "ex: + 1500 salaire", "example": "+ 1500 salaire" },
-    "showShopping": { "name": "Afficher la Liste de Courses", "description": "Voir et gérer vos listes de courses", "example": "liste" },
-    "showBudgets": { "name": "Afficher les Budgets", "description": "Voir vos budgets événementiels et mensuels", "example": "budgets" },
-    "showGoals": { "name": "Afficher les Objectifs", "description": "Voir vos objectifs financiers", "example": "objectifs" },
-    "showGraph": { "name": "Afficher le Graphique", "description": "Visualiser la répartition des dépenses", "example": "graphique" },
-    "showForecast": { "name": "Afficher les Prévisions", "description": "Voir les projections de solde futur (3-12 mois)", "example": "prévisions" },
-    "showReports": { "name": "Afficher les Rapports", "description": "Voir les rapports financiers mensuels automatisés", "example": "rapports" },
-    "showInsights": { "name": "Afficher les Aperçus IA", "description": "Posez des questions sur vos finances", "example": "aperçus" },
-    "showRecurring": { "name": "Afficher les Récurrents", "description": "Voir transactions et abonnements récurrents", "example": "abonnements" },
-    "showPlanning": { "name": "Afficher le Plan Mensuel", "description": "Voir votre revenu et allocations mensuelles", "example": "planning" },
-    "showDebts": { "name": "Afficher le Suivi des Dettes", "description": "Suivre l'argent que vous devez et qui vous est dû", "example": "dettes" },
-    "createBudget": { "name": "Créer un Budget", "description": "ex: budget voyage 1200", "example": "budget vacances 500" },
-    "createGoal": { "name": "Créer un Objectif", "description": "ex: objectif 'Nouveau Mac' 2500", "example": "objectif 'Nouvel Ordi' 1200" },
-    "startMonthlyBudget": { "name": "Commencer un Budget Mensuel", "description": "Créer un plan budgétaire mensuel détaillé", "example": "budget mensuel" },
-    "showEducation": { "name": "Éducation & Ressources", "description": "Apprendre à gérer ses finances", "example": "apprendre" },
-    "showProfile": { "name": "Mon Profil Financier", "description": "Voir mes scores et progrès", "example": "profil" },
-    "help": { "name": "Aide & Commandes", "description": "Afficher la liste de toutes les commandes disponibles", "example": "aide" }
+    "addExpense": {
+      "name": "Ajouter une Dépense",
+      "description": "ex: 25 sushi",
+      "example": "25 sushi"
+    },
+    "addIncome": {
+      "name": "Ajouter un Revenu",
+      "description": "ex: + 1500 salaire",
+      "example": "+ 1500 salaire"
+    },
+    "showShopping": {
+      "name": "Afficher la Liste de Courses",
+      "description": "Voir et gérer vos listes de courses",
+      "example": "liste"
+    },
+    "showBudgets": {
+      "name": "Afficher les Budgets",
+      "description": "Voir vos budgets événementiels et mensuels",
+      "example": "budgets"
+    },
+    "showGoals": {
+      "name": "Afficher les Objectifs",
+      "description": "Voir vos objectifs financiers",
+      "example": "objectifs"
+    },
+    "showGraph": {
+      "name": "Afficher le Graphique",
+      "description": "Visualiser la répartition des dépenses",
+      "example": "graphique"
+    },
+    "showForecast": {
+      "name": "Afficher les Prévisions",
+      "description": "Voir les projections de solde futur (3-12 mois)",
+      "example": "prévisions"
+    },
+    "showReports": {
+      "name": "Afficher les Rapports",
+      "description": "Voir les rapports financiers mensuels automatisés",
+      "example": "rapports"
+    },
+    "showInsights": {
+      "name": "Afficher les Aperçus IA",
+      "description": "Posez des questions sur vos finances",
+      "example": "aperçus"
+    },
+    "showRecurring": {
+      "name": "Afficher les Récurrents",
+      "description": "Voir transactions et abonnements récurrents",
+      "example": "abonnements"
+    },
+    "showPlanning": {
+      "name": "Afficher le Plan Mensuel",
+      "description": "Voir votre revenu et allocations mensuelles",
+      "example": "planning"
+    },
+    "showDebts": {
+      "name": "Afficher le Suivi des Dettes",
+      "description": "Suivre l'argent que vous devez et qui vous est dû",
+      "example": "dettes"
+    },
+    "createBudget": {
+      "name": "Créer un Budget",
+      "description": "ex: budget voyage 1200",
+      "example": "budget vacances 500"
+    },
+    "createGoal": {
+      "name": "Créer un Objectif",
+      "description": "ex: objectif 'Nouveau Mac' 2500",
+      "example": "objectif 'Nouvel Ordi' 1200"
+    },
+    "startMonthlyBudget": {
+      "name": "Commencer un Budget Mensuel",
+      "description": "Créer un plan budgétaire mensuel détaillé",
+      "example": "budget mensuel"
+    },
+    "showEducation": {
+      "name": "Éducation & Ressources",
+      "description": "Apprendre à gérer ses finances",
+      "example": "apprendre"
+    },
+    "showProfile": {
+      "name": "Mon Profil Financier",
+      "description": "Voir mes scores et progrès",
+      "example": "profil"
+    },
+    "help": {
+      "name": "Aide & Commandes",
+      "description": "Afficher la liste de toutes les commandes disponibles",
+      "example": "aide"
+    }
   },
   "education": {
-      "title": "Éducation Financière",
-      "tabForYou": "Pour Vous",
-      "tabLibrary": "Bibliothèque",
-      "tabGlossary": "Glossaire",
-      "recommended": "Recommandé pour vous",
-      "paths": "Parcours d'Apprentissage",
-      "readTime": "{min} min",
-      "takeAction": "Passer à l'action",
-      "markAsRead": "Marquer comme lu",
-      "search": "Rechercher...",
-      "noResults": "Aucun résultat trouvé.",
-      "basics": {
-          "budget101": {
-              "title": "Le Budget 50/30/20",
-              "desc": "La méthode la plus simple pour commencer à gérer son argent sans se priver.",
-              "content": "### La Règle 50/30/20\n\nC'est une méthode simple pour diviser votre revenu net mensuel en trois catégories :\n\n1. **50% pour les Besoins** : Loyer, factures, courses alimentaires, transports. Ce sont les dépenses vitales.\n2. **30% pour les Envies** : Sorties, restaurants, shopping, loisirs. C'est ce qui rend la vie agréable.\n3. **20% pour l'Épargne** : Remboursement de dettes, fonds d'urgence, investissements.\n\n**Pourquoi ça marche ?**\nCela permet d'automatiser vos décisions et de vous assurer que vous épargnez toujours un peu, tout en profitant de la vie."
-          }
-      },
-      "saving": {
-          "emergency": {
-              "title": "Le Fonds d'Urgence",
-              "desc": "Pourquoi et comment mettre de côté 3 à 6 mois de dépenses.",
-              "content": "### Le Fonds de Sécurité\n\nAvant d'investir ou de dépenser pour des plaisirs coûteux, la priorité est la sécurité. Un fonds d'urgence est une somme d'argent mise de côté (idéalement sur un livret disponible) pour couvrir les imprévus : perte d'emploi, réparation de voiture, problème de santé.\n\n**Combien ?**\nVisez 1000€ pour commencer, puis 3 mois de dépenses courantes."
-          }
-      },
-      "debt": {
-          "snowball": {
-              "title": "La Méthode Boule de Neige",
-              "desc": "Remboursez vos dettes efficacement en commençant par la plus petite.",
-              "content": "### L'Effet Boule de Neige\n\nCette méthode psychologique pour rembourser ses dettes consiste à :\n1. Lister toutes vos dettes de la plus petite à la plus grande (peu importe le taux d'intérêt).\n2. Payer le minimum sur toutes, sauf la plus petite.\n3. Mettre tout l'argent disponible sur la plus petite dette jusqu'à ce qu'elle soit éliminée.\n4. Passer à la suivante en ajoutant le montant que vous payiez sur la première.\n\nCela crée des victoires rapides et motive à continuer !"
-          }
-      },
-      "events": {
-          "wedding": {
-              "title": "Budget Mariage Sans Stress",
-              "desc": "Planifier le grand jour sans commencer la vie commune avec des dettes.",
-              "content": "### Financer un Événement\n\nUn mariage (ou tout grand événement) se prépare financièrement. \n1. **Définissez un plafond total** avant de regarder les prestations.\n2. **Priorisez** : Qu'est-ce qui compte le plus ? Le lieu ? Le traiteur ? La musique ? Mettez le budget là-dessus.\n3. **Créez un budget dédié** dans l'application pour suivre les acomptes."
-          }
-      },
-      "psychology": {
-          "impulse": {
-              "title": "Maîtriser les Achats Impulsifs",
-              "desc": "Comprendre la règle des 24h pour éviter les regrets.",
-              "content": "### La Règle des 24 Heures\n\nSi vous voyez quelque chose que vous voulez acheter (hors besoins vitaux), attendez 24 heures.\n\nSouvent, l'envie est émotionnelle (stress, ennui, marketing). Après une nuit de sommeil, l'envie disparaît souvent. Si vous en avez toujours envie et que c'est dans le budget, allez-y !"
-          }
-      },
-      "path": {
-          "stability": {
-              "title": "Vers la Stabilité",
-              "desc": "Les bases pour ne plus être à découvert."
-          },
-          "debtfree": {
-              "title": "Objectif Zéro Dette",
-              "desc": "Un plan d'attaque pour retrouver votre liberté."
-          }
+    "title": "Éducation Financière",
+    "tabForYou": "Pour Vous",
+    "tabLibrary": "Bibliothèque",
+    "tabGlossary": "Glossaire",
+    "recommended": "Recommandé pour vous",
+    "paths": "Parcours d'Apprentissage",
+    "readTime": "{min} min",
+    "takeAction": "Passer à l'action",
+    "markAsRead": "Marquer comme lu",
+    "search": "Rechercher...",
+    "noResults": "Aucun résultat trouvé.",
+    "basics": {
+      "budget101": {
+        "title": "Le Budget 50/30/20",
+        "desc": "La méthode la plus simple pour commencer à gérer son argent sans se priver.",
+        "content": "### La Règle 50/30/20\n\nC'est une méthode simple pour diviser votre revenu net mensuel en trois catégories :\n\n1. **50% pour les Besoins** : Loyer, factures, courses alimentaires, transports. Ce sont les dépenses vitales.\n2. **30% pour les Envies** : Sorties, restaurants, shopping, loisirs. C'est ce qui rend la vie agréable.\n3. **20% pour l'Épargne** : Remboursement de dettes, fonds d'urgence, investissements.\n\n**Pourquoi ça marche ?**\nCela permet d'automatiser vos décisions et de vous assurer que vous épargnez toujours un peu, tout en profitant de la vie."
       }
+    },
+    "saving": {
+      "emergency": {
+        "title": "Le Fonds d'Urgence",
+        "desc": "Pourquoi et comment mettre de côté 3 à 6 mois de dépenses.",
+        "content": "### Le Fonds de Sécurité\n\nAvant d'investir ou de dépenser pour des plaisirs coûteux, la priorité est la sécurité. Un fonds d'urgence est une somme d'argent mise de côté (idéalement sur un livret disponible) pour couvrir les imprévus : perte d'emploi, réparation de voiture, problème de santé.\n\n**Combien ?**\nVisez 1000€ pour commencer, puis 3 mois de dépenses courantes."
+      }
+    },
+    "debt": {
+      "snowball": {
+        "title": "La Méthode Boule de Neige",
+        "desc": "Remboursez vos dettes efficacement en commençant par la plus petite.",
+        "content": "### L'Effet Boule de Neige\n\nCette méthode psychologique pour rembourser ses dettes consiste à :\n1. Lister toutes vos dettes de la plus petite à la plus grande (peu importe le taux d'intérêt).\n2. Payer le minimum sur toutes, sauf la plus petite.\n3. Mettre tout l'argent disponible sur la plus petite dette jusqu'à ce qu'elle soit éliminée.\n4. Passer à la suivante en ajoutant le montant que vous payiez sur la première.\n\nCela crée des victoires rapides et motive à continuer !"
+      }
+    },
+    "events": {
+      "wedding": {
+        "title": "Budget Mariage Sans Stress",
+        "desc": "Planifier le grand jour sans commencer la vie commune avec des dettes.",
+        "content": "### Financer un Événement\n\nUn mariage (ou tout grand événement) se prépare financièrement. \n1. **Définissez un plafond total** avant de regarder les prestations.\n2. **Priorisez** : Qu'est-ce qui compte le plus ? Le lieu ? Le traiteur ? La musique ? Mettez le budget là-dessus.\n3. **Créez un budget dédié** dans l'application pour suivre les acomptes."
+      }
+    },
+    "psychology": {
+      "impulse": {
+        "title": "Maîtriser les Achats Impulsifs",
+        "desc": "Comprendre la règle des 24h pour éviter les regrets.",
+        "content": "### La Règle des 24 Heures\n\nSi vous voyez quelque chose que vous voulez acheter (hors besoins vitaux), attendez 24 heures.\n\nSouvent, l'envie est émotionnelle (stress, ennui, marketing). Après une nuit de sommeil, l'envie disparaît souvent. Si vous en avez toujours envie et que c'est dans le budget, allez-y !"
+      }
+    },
+    "path": {
+      "stability": {
+        "title": "Vers la Stabilité",
+        "desc": "Les bases pour ne plus être à découvert."
+      },
+      "debtfree": {
+        "title": "Objectif Zéro Dette",
+        "desc": "Un plan d'attaque pour retrouver votre liberté."
+      }
+    }
   },
   "glossary": {
-      "apr": { "term": "TAEG", "def": "Taux Annuel Effectif Global. C'est le coût total de votre crédit exprimé en pourcentage annuel. Il inclut les intérêts et les frais annexes." },
-      "asset": { "term": "Actif", "def": "Ce que vous possédez et qui a de la valeur (argent, maison, investissements)." },
-      "compound": { "term": "Intérêts Composés", "def": "Des intérêts calculés sur le capital initial ET sur les intérêts accumulés. C'est ce qui fait croître votre épargne exponentiellement." },
-      "inflation": { "term": "Inflation", "def": "La perte de pouvoir d'achat de la monnaie qui se traduit par une augmentation générale et durable des prix." },
-      "liability": { "term": "Passif", "def": "Ce que vous devez (dettes, crédits)." },
-      "networth": { "term": "Patrimoine Net", "def": "La valeur de tous vos actifs moins tous vos passifs." },
-      "zerobased": { "term": "Budget Base Zéro", "def": "Une méthode où chaque euro gagné a une fonction précise (dépense ou épargne), de sorte que Revenus - Dépenses = 0." }
+    "apr": {
+      "term": "TAEG",
+      "def": "Taux Annuel Effectif Global. C'est le coût total de votre crédit exprimé en pourcentage annuel. Il inclut les intérêts et les frais annexes."
+    },
+    "asset": {
+      "term": "Actif",
+      "def": "Ce que vous possédez et qui a de la valeur (argent, maison, investissements)."
+    },
+    "compound": {
+      "term": "Intérêts Composés",
+      "def": "Des intérêts calculés sur le capital initial ET sur les intérêts accumulés. C'est ce qui fait croître votre épargne exponentiellement."
+    },
+    "inflation": {
+      "term": "Inflation",
+      "def": "La perte de pouvoir d'achat de la monnaie qui se traduit par une augmentation générale et durable des prix."
+    },
+    "liability": {
+      "term": "Passif",
+      "def": "Ce que vous devez (dettes, crédits)."
+    },
+    "networth": {
+      "term": "Patrimoine Net",
+      "def": "La valeur de tous vos actifs moins tous vos passifs."
+    },
+    "zerobased": {
+      "term": "Budget Base Zéro",
+      "def": "Une méthode où chaque euro gagné a une fonction précise (dépense ou épargne), de sorte que Revenus - Dépenses = 0."
+    }
   },
   "date": {
     "today": "Aujourd'hui",
@@ -455,12 +547,12 @@
     "onTrackMessage": "Bravo ! Vous êtes en avance sur votre planning."
   },
   "simulation": {
-      "bannerTitle": "Mode Simulation",
-      "bannerDesc": "Vous éditez une copie temporaire de vos finances. Appliquer pour sauvegarder, Annuler pour restaurer.",
-      "apply": "Appliquer",
-      "discard": "Annuler",
-      "started": "Simulation démarrée. Essayez 'add 5000 bonus'.",
-      "alreadyActive": "Déjà en mode simulation."
+    "bannerTitle": "Mode Simulation",
+    "bannerDesc": "Vous éditez une copie temporaire de vos finances. Appliquer pour sauvegarder, Annuler pour restaurer.",
+    "apply": "Appliquer",
+    "discard": "Annuler",
+    "started": "Simulation démarrée. Essayez 'add 5000 bonus'.",
+    "alreadyActive": "Déjà en mode simulation."
   },
   "landing": {
     "heroTitle": "Gérez votre argent à la vitesse de la pensée.",
@@ -472,7 +564,7 @@
     "featuresSubtitle": "Tout ce dont vous avez besoin, rien de superflu. Productivité pure.",
     "readyTitle": "Prêt à commencer ?",
     "joinNow": "Rejoindre Maintenant",
-    "footer": "© {year} Planora Finance. Fait avec ♥ et de l'IA."
+    "footer": "© {year} Planora Finance. VYT Digital Solution SARL"
   },
   "features": {
     "aiParserTitle": "Parseur IA",
@@ -505,41 +597,41 @@
     "demoEmail": "nom@exemple.com"
   },
   "help": {
-      "title": "Aide & Commandes",
-      "subtitle": "Toutes les actions possibles dans votre palette de commande.",
-      "category": {
-          "transactions": "Transactions & Dettes",
-          "planning": "Planification & Objectifs",
-          "view": "Vues & Analyses",
-          "other": "Autres"
-      },
-      "footerHint": "Astuce : Vous pouvez utiliser des expressions mathématiques comme '5*12' dans vos montants."
+    "title": "Aide & Commandes",
+    "subtitle": "Toutes les actions possibles dans votre palette de commande.",
+    "category": {
+      "transactions": "Transactions & Dettes",
+      "planning": "Planification & Objectifs",
+      "view": "Vues & Analyses",
+      "other": "Autres"
+    },
+    "footerHint": "Astuce : Vous pouvez utiliser des expressions mathématiques comme '5*12' dans vos montants."
   },
   "profile": {
-      "maturity": {
-          "beginner": "Débutant",
-          "intermediate": "Intermédiaire",
-          "advanced": "Avancé"
-      },
-      "score": {
-          "maturity": "Maturité",
-          "discipline": "Discipline",
-          "stability": "Stabilité"
-      },
-      "stress": {
-          "low": "Faible",
-          "medium": "Moyen",
-          "high": "Élevé"
-      },
-      "stressLevel": "Niveau de Stress Financier",
-      "primaryFocus": "Objectif Principal",
-      "nextSteps": "Prochaines Étapes",
-      "disclaimer": "Ces scores sont calculés par IA pour vous aider à progresser et ne constituent pas un conseil financier.",
-      "tip": {
-          "improveDiscipline": "Votre discipline budgétaire est faible. Essayez de créer des budgets réalistes pour vos plus grosses dépenses.",
-          "buildEmergency": "Votre indice de stabilité suggère de renforcer votre épargne de sécurité.",
-          "reduceStress": "Le stress financier élevé est souvent lié aux dettes. Consultez le module éducatif 'Boule de Neige'.",
-          "invest": "Votre profil est solide ! Pensez à explorer l'investissement long terme."
-      }
+    "maturity": {
+      "beginner": "Débutant",
+      "intermediate": "Intermédiaire",
+      "advanced": "Avancé"
+    },
+    "score": {
+      "maturity": "Maturité",
+      "discipline": "Discipline",
+      "stability": "Stabilité"
+    },
+    "stress": {
+      "low": "Faible",
+      "medium": "Moyen",
+      "high": "Élevé"
+    },
+    "stressLevel": "Niveau de Stress Financier",
+    "primaryFocus": "Objectif Principal",
+    "nextSteps": "Prochaines Étapes",
+    "disclaimer": "Ces scores sont calculés par IA pour vous aider à progresser et ne constituent pas un conseil financier.",
+    "tip": {
+      "improveDiscipline": "Votre discipline budgétaire est faible. Essayez de créer des budgets réalistes pour vos plus grosses dépenses.",
+      "buildEmergency": "Votre indice de stabilité suggère de renforcer votre épargne de sécurité.",
+      "reduceStress": "Le stress financier élevé est souvent lié aux dettes. Consultez le module éducatif 'Boule de Neige'.",
+      "invest": "Votre profil est solide ! Pensez à explorer l'investissement long terme."
+    }
   }
 }

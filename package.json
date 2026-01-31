@@ -9,13 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/genai": "latest",
+    "@supabase/supabase-js": "^2.93.3",
+    "framer-motion": "^11.0.8",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "framer-motion": "^11.0.8",
-    "@google/genai": "latest",
+    "react-markdown": "^10.1.0",
     "react-minimal-pie-chart": "^8.4.0",
-    "recharts": "2.12.3",
-    "react-markdown": "^10.1.0"
+    "recharts": "2.12.3"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

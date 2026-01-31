@@ -1,4 +1,3 @@
-
 {
   "balance": {
     "current": "Current Balance"
@@ -13,17 +12,17 @@
     "listening": "Listening..."
   },
   "onboarding": {
-      "title": "Welcome! Let's get started.",
-      "subtitle": "{count} of {total} steps completed",
-      "tryIt": "Try:",
-      "stepExpenseTitle": "Log your first expense",
-      "stepExpenseDesc": "Type '25 lunch' or click Try to track spending instantly.",
-      "stepIncomeTitle": "Record an income",
-      "stepIncomeDesc": "Add your salary or side hustle to see your balance grow.",
-      "stepBudgetTitle": "Create a budget",
-      "stepBudgetDesc": "Set a limit for a category or event to stay on track.",
-      "stepGoalTitle": "Set a financial goal",
-      "stepGoalDesc": "Save for something special like a vacation or new gadget."
+    "title": "Welcome! Let's get started.",
+    "subtitle": "{count} of {total} steps completed",
+    "tryIt": "Try:",
+    "stepExpenseTitle": "Log your first expense",
+    "stepExpenseDesc": "Type '25 lunch' or click Try to track spending instantly.",
+    "stepIncomeTitle": "Record an income",
+    "stepIncomeDesc": "Add your salary or side hustle to see your balance grow.",
+    "stepBudgetTitle": "Create a budget",
+    "stepBudgetDesc": "Set a limit for a category or event to stay on track.",
+    "stepGoalTitle": "Set a financial goal",
+    "stepGoalDesc": "Save for something special like a vacation or new gadget."
   },
   "history": {
     "title": "Recent History",
@@ -93,14 +92,14 @@
     "chatPlaceholder": "Ask a question about your finances..."
   },
   "reports": {
-      "title": "Monthly Reports",
-      "empty": "Reports are generated automatically at the end of each month. Check back later!",
-      "emptyHint": "Tip: Keep adding transactions regularly to get meaningful insights.",
-      "generatedAt": "Generated on",
-      "savingsRate": "Savings Rate",
-      "executiveSummary": "Executive Summary",
-      "behavioralAnalysis": "Behavioral Analysis",
-      "coachingTips": "Coaching Tips"
+    "title": "Monthly Reports",
+    "empty": "Reports are generated automatically at the end of each month. Check back later!",
+    "emptyHint": "Tip: Keep adding transactions regularly to get meaningful insights.",
+    "generatedAt": "Generated on",
+    "savingsRate": "Savings Rate",
+    "executiveSummary": "Executive Summary",
+    "behavioralAnalysis": "Behavioral Analysis",
+    "coachingTips": "Coaching Tips"
   },
   "graph": {
     "title": "Analytics",
@@ -252,14 +251,14 @@
     "privacyMode": "Privacy Mode",
     "privacyModeDesc": "Blur balance on dashboard",
     "persona": {
-        "benevolent": "Benevolent (Default)",
-        "strict": "Strict & Direct",
-        "humorous": "Humorous & Witty"
+      "benevolent": "Benevolent (Default)",
+      "strict": "Strict & Direct",
+      "humorous": "Humorous & Witty"
     },
     "personaDesc": {
-        "benevolent": "Gentle, reassuring, and focuses on positive reinforcement.",
-        "strict": "Military-style. Focuses on discipline, facts, and cutting costs.",
-        "humorous": "Uses sarcasm and jokes to make finance less boring."
+      "benevolent": "Gentle, reassuring, and focuses on positive reinforcement.",
+      "strict": "Military-style. Focuses on discipline, facts, and cutting costs.",
+      "humorous": "Uses sarcasm and jokes to make finance less boring."
     },
     "userNamePlaceholder": "Enter your name...",
     "dataManagement": "Data Management",
@@ -325,91 +324,184 @@
     "to": "to"
   },
   "commands": {
-    "addExpense": { "name": "Add Expense", "description": "e.g., 25 sushi", "example": "25 sushi" },
-    "addIncome": { "name": "Add Income", "description": "e.g., + 1500 salary", "example": "+ 1500 salary" },
-    "showShopping": { "name": "Show Shopping List", "description": "View and manage your shopping lists", "example": "list" },
-    "showBudgets": { "name": "Show Budgets", "description": "View your event and monthly budgets", "example": "budgets" },
-    "showGoals": { "name": "Show Goals", "description": "View your financial goals", "example": "goals" },
-    "showGraph": { "name": "Show Expense Graph", "description": "Visualize your spending breakdown", "example": "graph" },
-    "showForecast": { "name": "Show Forecast", "description": "View future balance projections (3-12 months)", "example": "forecast" },
-    "showReports": { "name": "Show Monthly Reports", "description": "View automated end-of-month financial reports", "example": "reports" },
-    "showInsights": { "name": "Show AI Insights", "description": "Ask questions about your finances", "example": "insights" },
-    "showRecurring": { "name": "Show Recurring", "description": "View recurring transactions and subscriptions", "example": "recurring" },
-    "showPlanning": { "name": "Show Monthly Plan", "description": "View your monthly income and assignments", "example": "plan" },
-    "showDebts": { "name": "Show Debt Tracker", "description": "Track money you owe and is owed to you", "example": "debt" },
-    "createBudget": { "name": "Create Budget", "description": "e.g., budget vacation 500", "example": "budget vacation 500" },
-    "createGoal": { "name": "Create Goal", "description": "e.g., goal 'New Laptop' 1200", "example": "goal \"New Laptop\" 1200" },
-    "startMonthlyBudget": { "name": "Start Monthly Budget", "description": "Create a detailed monthly budget plan", "example": "monthly budget" },
-    "showEducation": { "name": "Education & Resources", "description": "Learn how to manage your finances", "example": "learn" },
-    "showProfile": { "name": "My Financial Profile", "description": "View my scores and progress", "example": "profile" },
-    "help": { "name": "Help & Commands", "description": "View a list of all available commands", "example": "help" }
+    "addExpense": {
+      "name": "Add Expense",
+      "description": "e.g., 25 sushi",
+      "example": "25 sushi"
+    },
+    "addIncome": {
+      "name": "Add Income",
+      "description": "e.g., + 1500 salary",
+      "example": "+ 1500 salary"
+    },
+    "showShopping": {
+      "name": "Show Shopping List",
+      "description": "View and manage your shopping lists",
+      "example": "list"
+    },
+    "showBudgets": {
+      "name": "Show Budgets",
+      "description": "View your event and monthly budgets",
+      "example": "budgets"
+    },
+    "showGoals": {
+      "name": "Show Goals",
+      "description": "View your financial goals",
+      "example": "goals"
+    },
+    "showGraph": {
+      "name": "Show Expense Graph",
+      "description": "Visualize your spending breakdown",
+      "example": "graph"
+    },
+    "showForecast": {
+      "name": "Show Forecast",
+      "description": "View future balance projections (3-12 months)",
+      "example": "forecast"
+    },
+    "showReports": {
+      "name": "Show Monthly Reports",
+      "description": "View automated end-of-month financial reports",
+      "example": "reports"
+    },
+    "showInsights": {
+      "name": "Show AI Insights",
+      "description": "Ask questions about your finances",
+      "example": "insights"
+    },
+    "showRecurring": {
+      "name": "Show Recurring",
+      "description": "View recurring transactions and subscriptions",
+      "example": "recurring"
+    },
+    "showPlanning": {
+      "name": "Show Monthly Plan",
+      "description": "View your monthly income and assignments",
+      "example": "plan"
+    },
+    "showDebts": {
+      "name": "Show Debt Tracker",
+      "description": "Track money you owe and is owed to you",
+      "example": "debt"
+    },
+    "createBudget": {
+      "name": "Create Budget",
+      "description": "e.g., budget vacation 500",
+      "example": "budget vacation 500"
+    },
+    "createGoal": {
+      "name": "Create Goal",
+      "description": "e.g., goal 'New Laptop' 1200",
+      "example": "goal \"New Laptop\" 1200"
+    },
+    "startMonthlyBudget": {
+      "name": "Start Monthly Budget",
+      "description": "Create a detailed monthly budget plan",
+      "example": "monthly budget"
+    },
+    "showEducation": {
+      "name": "Education & Resources",
+      "description": "Learn how to manage your finances",
+      "example": "learn"
+    },
+    "showProfile": {
+      "name": "My Financial Profile",
+      "description": "View my scores and progress",
+      "example": "profile"
+    },
+    "help": {
+      "name": "Help & Commands",
+      "description": "View a list of all available commands",
+      "example": "help"
+    }
   },
   "education": {
-      "title": "Financial Education",
-      "tabForYou": "For You",
-      "tabLibrary": "Library",
-      "tabGlossary": "Glossary",
-      "recommended": "Recommended for you",
-      "paths": "Learning Paths",
-      "readTime": "{min} min read",
-      "takeAction": "Take Action",
-      "markAsRead": "Mark as Read",
-      "search": "Search...",
-      "noResults": "No results found.",
-      "basics": {
-          "budget101": {
-              "title": "The 50/30/20 Budget",
-              "desc": "The simplest way to manage your money without feeling deprived.",
-              "content": "### The 50/30/20 Rule\n\nThis simple method divides your monthly net income into three categories:\n\n1. **50% for Needs**: Rent, bills, groceries, transport. These are vital expenses.\n2. **30% for Wants**: Dining out, shopping, hobbies. This makes life enjoyable.\n3. **20% for Savings**: Debt repayment, emergency fund, investments.\n\n**Why it works?**\nIt automates your decisions and ensures you always save a little while enjoying life."
-          }
-      },
-      "saving": {
-          "emergency": {
-              "title": "The Emergency Fund",
-              "desc": "Why and how to save 3-6 months of expenses.",
-              "content": "### The Safety Net\n\nBefore investing or spending on expensive luxuries, priority is safety. An emergency fund is money set aside (ideally in an accessible account) to cover the unexpected: job loss, car repair, health issue.\n\n**How much?**\nAim for $1000 to start, then build up to 3 months of living expenses."
-          }
-      },
-      "debt": {
-          "snowball": {
-              "title": "The Snowball Method",
-              "desc": "Pay off debt efficiently by starting small.",
-              "content": "### The Debt Snowball\n\nThis psychological method for paying off debt involves:\n1. Listing all debts from smallest to largest balance (ignoring interest rates).\n2. Paying minimums on everything except the smallest.\n3. Throwing all extra money at the smallest debt until it's gone.\n4. Rolling that payment into the next smallest debt.\n\nThis creates quick wins and builds momentum!"
-          }
-      },
-      "events": {
-          "wedding": {
-              "title": "Stress-Free Wedding Budget",
-              "desc": "Planning the big day without starting married life in debt.",
-              "content": "### Funding an Event\n\nA wedding (or any big event) needs financial prep.\n1. **Set a total cap** before looking at vendors.\n2. **Prioritize**: What matters most? Venue? Food? Music? Put the budget there.\n3. **Create a dedicated budget** in the app to track deposits."
-          }
-      },
-      "psychology": {
-          "impulse": {
-              "title": "Mastering Impulse Buying",
-              "desc": "Understanding the 24-hour rule to avoid regret.",
-              "content": "### The 24-Hour Rule\n\nIf you see something you want to buy (that isn't a vital need), wait 24 hours.\n\nOften, the urge is emotional (stress, boredom, marketing). After sleeping on it, the urge usually fades. If you still want it and it fits the budget, go ahead!"
-          }
-      },
-      "path": {
-          "stability": {
-              "title": "Road to Stability",
-              "desc": "The basics to stop living paycheck to paycheck."
-          },
-          "debtfree": {
-              "title": "Debt Free Journey",
-              "desc": "A battle plan to reclaim your freedom."
-          }
+    "title": "Financial Education",
+    "tabForYou": "For You",
+    "tabLibrary": "Library",
+    "tabGlossary": "Glossary",
+    "recommended": "Recommended for you",
+    "paths": "Learning Paths",
+    "readTime": "{min} min read",
+    "takeAction": "Take Action",
+    "markAsRead": "Mark as Read",
+    "search": "Search...",
+    "noResults": "No results found.",
+    "basics": {
+      "budget101": {
+        "title": "The 50/30/20 Budget",
+        "desc": "The simplest way to manage your money without feeling deprived.",
+        "content": "### The 50/30/20 Rule\n\nThis simple method divides your monthly net income into three categories:\n\n1. **50% for Needs**: Rent, bills, groceries, transport. These are vital expenses.\n2. **30% for Wants**: Dining out, shopping, hobbies. This makes life enjoyable.\n3. **20% for Savings**: Debt repayment, emergency fund, investments.\n\n**Why it works?**\nIt automates your decisions and ensures you always save a little while enjoying life."
       }
+    },
+    "saving": {
+      "emergency": {
+        "title": "The Emergency Fund",
+        "desc": "Why and how to save 3-6 months of expenses.",
+        "content": "### The Safety Net\n\nBefore investing or spending on expensive luxuries, priority is safety. An emergency fund is money set aside (ideally in an accessible account) to cover the unexpected: job loss, car repair, health issue.\n\n**How much?**\nAim for $1000 to start, then build up to 3 months of living expenses."
+      }
+    },
+    "debt": {
+      "snowball": {
+        "title": "The Snowball Method",
+        "desc": "Pay off debt efficiently by starting small.",
+        "content": "### The Debt Snowball\n\nThis psychological method for paying off debt involves:\n1. Listing all debts from smallest to largest balance (ignoring interest rates).\n2. Paying minimums on everything except the smallest.\n3. Throwing all extra money at the smallest debt until it's gone.\n4. Rolling that payment into the next smallest debt.\n\nThis creates quick wins and builds momentum!"
+      }
+    },
+    "events": {
+      "wedding": {
+        "title": "Stress-Free Wedding Budget",
+        "desc": "Planning the big day without starting married life in debt.",
+        "content": "### Funding an Event\n\nA wedding (or any big event) needs financial prep.\n1. **Set a total cap** before looking at vendors.\n2. **Prioritize**: What matters most? Venue? Food? Music? Put the budget there.\n3. **Create a dedicated budget** in the app to track deposits."
+      }
+    },
+    "psychology": {
+      "impulse": {
+        "title": "Mastering Impulse Buying",
+        "desc": "Understanding the 24-hour rule to avoid regret.",
+        "content": "### The 24-Hour Rule\n\nIf you see something you want to buy (that isn't a vital need), wait 24 hours.\n\nOften, the urge is emotional (stress, boredom, marketing). After sleeping on it, the urge usually fades. If you still want it and it fits the budget, go ahead!"
+      }
+    },
+    "path": {
+      "stability": {
+        "title": "Road to Stability",
+        "desc": "The basics to stop living paycheck to paycheck."
+      },
+      "debtfree": {
+        "title": "Debt Free Journey",
+        "desc": "A battle plan to reclaim your freedom."
+      }
+    }
   },
   "glossary": {
-      "apr": { "term": "APR", "def": "Annual Percentage Rate. The yearly cost of borrowing money, including interest and fees." },
-      "asset": { "term": "Asset", "def": "Something you own that has value (cash, house, investments)." },
-      "compound": { "term": "Compound Interest", "def": "Interest calculated on the initial principal AND the accumulated interest. It's how savings grow exponentially." },
-      "inflation": { "term": "Inflation", "def": "The rate at which prices for goods and services rise, decreasing purchasing power." },
-      "liability": { "term": "Liability", "def": "Something you owe (debt, loans)." },
-      "networth": { "term": "Net Worth", "def": "The value of all your assets minus all your liabilities." },
-      "zerobased": { "term": "Zero-Based Budget", "def": "A method where every dollar has a job (expense or savings), so Income - Expenses = 0." }
+    "apr": {
+      "term": "APR",
+      "def": "Annual Percentage Rate. The yearly cost of borrowing money, including interest and fees."
+    },
+    "asset": {
+      "term": "Asset",
+      "def": "Something you own that has value (cash, house, investments)."
+    },
+    "compound": {
+      "term": "Compound Interest",
+      "def": "Interest calculated on the initial principal AND the accumulated interest. It's how savings grow exponentially."
+    },
+    "inflation": {
+      "term": "Inflation",
+      "def": "The rate at which prices for goods and services rise, decreasing purchasing power."
+    },
+    "liability": {
+      "term": "Liability",
+      "def": "Something you owe (debt, loans)."
+    },
+    "networth": {
+      "term": "Net Worth",
+      "def": "The value of all your assets minus all your liabilities."
+    },
+    "zerobased": {
+      "term": "Zero-Based Budget",
+      "def": "A method where every dollar has a job (expense or savings), so Income - Expenses = 0."
+    }
   },
   "date": {
     "today": "Today",
@@ -455,12 +547,12 @@
     "onTrackMessage": "Great job! You are ahead of schedule."
   },
   "simulation": {
-      "bannerTitle": "Simulation Mode",
-      "bannerDesc": "You are currently editing a temporary copy of your finances. Apply to save, Discard to revert.",
-      "apply": "Apply Changes",
-      "discard": "Discard",
-      "started": "Simulation started. Try 'add 5000 bonus'.",
-      "alreadyActive": "Already in simulation mode."
+    "bannerTitle": "Simulation Mode",
+    "bannerDesc": "You are currently editing a temporary copy of your finances. Apply to save, Discard to revert.",
+    "apply": "Apply Changes",
+    "discard": "Discard",
+    "started": "Simulation started. Try 'add 5000 bonus'.",
+    "alreadyActive": "Already in simulation mode."
   },
   "landing": {
     "heroTitle": "Manage money at the speed of thought.",
@@ -472,7 +564,7 @@
     "featuresSubtitle": "Everything you need, nothing you don't. Pure productivity.",
     "readyTitle": "Ready to start?",
     "joinNow": "Join Now",
-    "footer": "© {year} Planora Finance. Built with ♥ and AI."
+    "footer": "© {year} Planora Finance. VYT Digital Solution SARL"
   },
   "features": {
     "aiParserTitle": "AI-Powered Parser",
@@ -505,41 +597,41 @@
     "demoEmail": "name@example.com"
   },
   "help": {
-      "title": "Help & Commands",
-      "subtitle": "All possible actions in your command palette.",
-      "category": {
-          "transactions": "Transactions & Debts",
-          "planning": "Planning & Goals",
-          "view": "Views & Analysis",
-          "other": "Other"
-      },
-      "footerHint": "Tip: You can use math expressions like '5*12' in your amounts."
+    "title": "Help & Commands",
+    "subtitle": "All possible actions in your command palette.",
+    "category": {
+      "transactions": "Transactions & Debts",
+      "planning": "Planning & Goals",
+      "view": "Views & Analysis",
+      "other": "Other"
+    },
+    "footerHint": "Tip: You can use math expressions like '5*12' in your amounts."
   },
   "profile": {
-      "maturity": {
-          "beginner": "Beginner",
-          "intermediate": "Intermediate",
-          "advanced": "Advanced"
-      },
-      "score": {
-          "maturity": "Maturity",
-          "discipline": "Discipline",
-          "stability": "Stability"
-      },
-      "stress": {
-          "low": "Low",
-          "medium": "Medium",
-          "high": "High"
-      },
-      "stressLevel": "Financial Stress Level",
-      "primaryFocus": "Primary Focus",
-      "nextSteps": "Next Steps",
-      "disclaimer": "These AI-generated scores help track your progress and do not constitute financial advice.",
-      "tip": {
-          "improveDiscipline": "Your budget discipline is low. Try creating realistic budgets for major expense categories.",
-          "buildEmergency": "Your stability score suggests building a stronger emergency fund.",
-          "reduceStress": "High stress is often linked to debt load. Check the 'Snowball Method' in Education.",
-          "invest": "Great profile! Consider exploring long-term investment strategies."
-      }
+    "maturity": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "score": {
+      "maturity": "Maturity",
+      "discipline": "Discipline",
+      "stability": "Stability"
+    },
+    "stress": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    },
+    "stressLevel": "Financial Stress Level",
+    "primaryFocus": "Primary Focus",
+    "nextSteps": "Next Steps",
+    "disclaimer": "These AI-generated scores help track your progress and do not constitute financial advice.",
+    "tip": {
+      "improveDiscipline": "Your budget discipline is low. Try creating realistic budgets for major expense categories.",
+      "buildEmergency": "Your stability score suggests building a stronger emergency fund.",
+      "reduceStress": "High stress is often linked to debt load. Check the 'Snowball Method' in Education.",
+      "invest": "Great profile! Consider exploring long-term investment strategies."
+    }
   }
 }
