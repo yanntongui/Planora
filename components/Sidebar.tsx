@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { useFinance } from '../context/FinanceContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useToast } from '../context/ToastContext';
+import { useTheme } from '../context/ThemeContext';
 import { Conversation, Goal, ActiveWidget } from '../types';
 import ChatPlusIcon from './icons/ChatPlusIcon';
 import TrashIcon from './icons/TrashIcon';
@@ -24,8 +25,9 @@ import HelpCircleIcon from './icons/HelpCircleIcon';
 import SearchIcon from './icons/SearchIcon';
 import CopyIcon from './icons/CopyIcon';
 import ArchiveIcon from './icons/ArchiveIcon';
+import SunIcon from './icons/SunIcon';
+import MoonIcon from './icons/MoonIcon';
 import MenuIcon from './icons/MenuIcon';
-import FolderIcon from './icons/FolderIcon'; 
 import SparklesIcon from './icons/SparklesIcon';
 import LoaderIcon from './icons/LoaderIcon';
 
@@ -51,7 +53,7 @@ const ConversationItem: React.FC<{ conversation: Conversation, onItemClick: () =
             inputRef.current?.select();
         }
     }, [isEditing]);
-    
+
     useEffect(() => {
         setName(conversation.name);
     }, [conversation.name]);
@@ -80,7 +82,7 @@ const ConversationItem: React.FC<{ conversation: Conversation, onItemClick: () =
             setIsEditing(false);
         }
     };
-    
+
     const handleDeleteRequest = () => {
         setIsConfirmingDelete(true);
         setShowMenu(false);
@@ -89,7 +91,7 @@ const ConversationItem: React.FC<{ conversation: Conversation, onItemClick: () =
     const handleConfirmDelete = () => {
         deleteConversation(conversation.id);
     };
-    
+
     const handleSmartRename = async () => {
         setShowMenu(false);
         setIsRenaming(true);
@@ -203,17 +205,17 @@ const Dashboard: React.FC = () => {
         const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
         const monthlyTxs = transactions.filter(tx => new Date(tx.date) >= startOfMonth);
-        
+
         const income = monthlyTxs.filter(tx => tx.type === 'income').reduce((sum, tx) => sum + tx.amount, 0);
         const expenses = monthlyTxs.filter(tx => tx.type === 'expense').reduce((sum, tx) => sum + tx.amount, 0);
 
         return { income, expenses, net: income - expenses };
     }, [transactions]);
-    
+
     return (
         <div className="mb-4">
-             <h2 className="text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider mb-2">{t('sidebar.dashboard')}</h2>
-             <div className="space-y-2">
+            <h2 className="text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider mb-2">{t('sidebar.dashboard')}</h2>
+            <div className="space-y-2">
                 <div className="flex items-center gap-2 p-2 bg-zinc-200/50 dark:bg-zinc-800/50 rounded-md">
                     <ArrowUpCircleIcon className="w-5 h-5 text-green-500" />
                     <div className="text-sm">
@@ -228,14 +230,14 @@ const Dashboard: React.FC = () => {
                         <p className="font-bold text-zinc-800 dark:text-zinc-100">{formatter.format(expenses)}</p>
                     </div>
                 </div>
-                 <div className="flex items-center gap-2 p-2 bg-zinc-200/50 dark:bg-zinc-800/50 rounded-md">
+                <div className="flex items-center gap-2 p-2 bg-zinc-200/50 dark:bg-zinc-800/50 rounded-md">
                     <PiggyBankIcon className={`w-5 h-5 ${net >= 0 ? 'text-blue-500' : 'text-orange-500'}`} />
                     <div className="text-sm">
                         <span className="text-zinc-500 dark:text-zinc-400">{t('sidebar.netSavings')}</span>
                         <p className={`font-bold ${net >= 0 ? 'text-zinc-800 dark:text-zinc-100' : 'text-orange-500'}`}>{formatter.format(net)}</p>
                     </div>
                 </div>
-             </div>
+            </div>
         </div>
     );
 };
@@ -246,7 +248,7 @@ const GoalsPreview: React.FC = () => {
 
     const recentGoals = useMemo(() => {
         return goals
-            .sort((a,b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
             .slice(0, 2);
     }, [goals]);
 
@@ -267,7 +269,7 @@ const GoalsPreview: React.FC = () => {
                                 <span className="font-medium text-zinc-700 dark:text-zinc-300 truncate pr-2">{goal.name}</span>
                                 <span className="font-semibold text-zinc-800 dark:text-zinc-100">{Math.round(progress)}%</span>
                             </div>
-                             <div className="w-full bg-zinc-200 dark:bg-zinc-700 rounded-full h-1.5">
+                            <div className="w-full bg-zinc-200 dark:bg-zinc-700 rounded-full h-1.5">
                                 <div className="bg-green-500 h-1.5 rounded-full" style={{ width: `${progress}%` }}></div>
                             </div>
                         </div>
@@ -292,7 +294,7 @@ const BudgetManager: React.FC<{ onItemClick: () => void }> = ({ onItemClick }) =
                 return status === filterStatus;
             })
             .filter(c => c.name.toLowerCase().includes(search.toLowerCase()))
-            .sort((a,b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     }, [conversations, search, filterStatus]);
 
     return (
@@ -303,7 +305,7 @@ const BudgetManager: React.FC<{ onItemClick: () => void }> = ({ onItemClick }) =
             </button>
             <AnimatePresence>
                 {!isCollapsed && (
-                    <motion.div 
+                    <motion.div
                         className="flex flex-col gap-2"
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
@@ -314,8 +316,8 @@ const BudgetManager: React.FC<{ onItemClick: () => void }> = ({ onItemClick }) =
                         <div className="flex flex-col gap-2 mb-1">
                             <div className="relative">
                                 <SearchIcon className="absolute left-2 top-1/2 -translate-y-1/2 w-3 h-3 text-zinc-400" />
-                                <input 
-                                    type="text" 
+                                <input
+                                    type="text"
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
                                     placeholder={t('sidebar.searchPlaceholder')}
@@ -323,13 +325,13 @@ const BudgetManager: React.FC<{ onItemClick: () => void }> = ({ onItemClick }) =
                                 />
                             </div>
                             <div className="flex bg-zinc-200 dark:bg-zinc-800 rounded p-0.5">
-                                <button 
+                                <button
                                     onClick={() => setFilterStatus('active')}
                                     className={`flex-1 text-[10px] font-medium py-1 rounded transition-colors ${filterStatus === 'active' ? 'bg-white dark:bg-zinc-700 shadow text-zinc-900 dark:text-white' : 'text-zinc-500'}`}
                                 >
                                     {t('sidebar.active')}
                                 </button>
-                                <button 
+                                <button
                                     onClick={() => setFilterStatus('archived')}
                                     className={`flex-1 text-[10px] font-medium py-1 rounded transition-colors ${filterStatus === 'archived' ? 'bg-white dark:bg-zinc-700 shadow text-zinc-900 dark:text-white' : 'text-zinc-500'}`}
                                 >
@@ -339,7 +341,7 @@ const BudgetManager: React.FC<{ onItemClick: () => void }> = ({ onItemClick }) =
                         </div>
 
                         <div className="space-y-1 overflow-y-auto max-h-[300px] pr-1">
-                             <AnimatePresence>
+                            <AnimatePresence>
                                 {filteredConversations.length > 0 ? (
                                     filteredConversations.map(conv => (
                                         <ConversationItem key={conv.id} conversation={conv} onItemClick={onItemClick} />
@@ -377,7 +379,7 @@ const BudgetSwitcher: React.FC<{ onCloseSidebar: () => void }> = ({ onCloseSideb
 
     return (
         <div className="relative mb-6" ref={dropdownRef}>
-            <button 
+            <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="w-full flex items-center justify-between p-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-800/50 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
             >
@@ -428,9 +430,10 @@ const BudgetSwitcher: React.FC<{ onCloseSidebar: () => void }> = ({ onCloseSideb
     );
 };
 
-const Sidebar: React.FC<{ closeSidebar?: () => void, openSettings: () => void }> = ({ closeSidebar = () => {}, openSettings }) => {
+const Sidebar: React.FC<{ closeSidebar?: () => void, openSettings: () => void }> = ({ closeSidebar = () => { }, openSettings }) => {
     const { userName, userAvatar, setActiveWidget, activeWidget, setHelpOpen } = useFinance();
     const { t } = useLanguage();
+    const { theme, toggleTheme } = useTheme();
 
     const isDashboardActive = activeWidget === ActiveWidget.NONE;
 
@@ -445,7 +448,7 @@ const Sidebar: React.FC<{ closeSidebar?: () => void, openSettings: () => void }>
                     {t('sidebar.dashboard')}
                 </button>
             </div>
-            
+
             <div className="flex-grow overflow-y-auto pr-1 -mr-1 flex flex-col">
                 {!isDashboardActive && (
                     <>
@@ -459,21 +462,40 @@ const Sidebar: React.FC<{ closeSidebar?: () => void, openSettings: () => void }>
             </div>
 
             <div className="mt-auto pt-2 border-t border-zinc-200 dark:border-zinc-800">
-                <button 
+                <button
                     onClick={() => { setHelpOpen(true); closeSidebar(); }}
                     className="flex items-center gap-3 w-full p-2 mb-1 rounded-md text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700/50 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors text-sm font-medium"
                 >
                     <HelpCircleIcon className="w-5 h-5" />
                     {t('sidebar.help')}
                 </button>
-                <div className="flex items-center justify-between gap-2 w-full p-2 rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700/50 transition-colors cursor-pointer" onClick={() => { openSettings(); closeSidebar(); }}>
+                <button
+                    onClick={() => toggleTheme()}
+                    className="flex items-center gap-3 w-full p-2 mb-1 rounded-md text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700/50 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors text-sm font-medium"
+                >
+                    {theme === 'dark' ? (
+                        <>
+                            <SunIcon className="w-5 h-5" />
+                            {t('theme.lightMode', { defaultValue: 'Mode Clair' })}
+                        </>
+                    ) : (
+                        <>
+                            <MoonIcon className="w-5 h-5" />
+                            {t('theme.darkMode', { defaultValue: 'Mode Sombre' })}
+                        </>
+                    )}
+                </button>
+                <div
+                    className="flex items-center justify-between gap-2 w-full p-2 rounded-md hover:bg-zinc-200 dark:hover:bg-zinc-700/50 transition-colors cursor-pointer"
+                    onClick={() => { openSettings(); closeSidebar(); }}
+                >
                     <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-zinc-200 to-zinc-300 dark:from-zinc-700 dark:to-zinc-800 flex items-center justify-center text-lg">
                             {userAvatar}
                         </div>
                         <span className="font-semibold text-sm text-zinc-800 dark:text-zinc-200 truncate">{userName}</span>
                     </div>
-                     <button className="p-2 text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white rounded-md" aria-label={t('settings.title')}>
+                    <button className="p-2 text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white rounded-md" aria-label={t('settings.title')}>
                         <SettingsIcon className="w-4 h-4" />
                     </button>
                 </div>

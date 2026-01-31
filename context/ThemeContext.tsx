@@ -5,6 +5,7 @@ type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
   theme: Theme;
+  toggleTheme: () => void;
   setTheme: (theme: Theme) => void;
 }
 
@@ -16,7 +17,7 @@ const useLocalStorageTheme = (): [Theme, (theme: Theme) => void] => {
       const item = window.localStorage.getItem('prompt-finance-theme');
       // Handle potential JSON stringified values (e.g. "light" vs light)
       const cleanItem = item ? item.replace(/"/g, '') : null;
-      
+
       if (cleanItem === 'light' || cleanItem === 'dark') {
         return cleanItem as Theme;
       }
@@ -52,8 +53,12 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     }
   }, [theme]);
 
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );
