@@ -14,7 +14,10 @@ export const suggestCategory = async (label: string): Promise<string> => {
     return 'general'; // Fallback
   }
 
-  const ai = new GoogleGenAI({ apiKey: API_KEY, dangerouslyAllowBrowser: true });
+  const ai = new GoogleGenAI({
+    apiKey: API_KEY,
+    dangerouslyAllowBrowser: true
+  } as any);
 
   const prompt = `Based on the transaction label "${label}", what is the most appropriate category?`;
 

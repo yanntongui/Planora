@@ -76,7 +76,10 @@ export const generateMonthlyReportData = async (
 
     if (apiKey) {
         try {
-            const ai = new GoogleGenAI({ apiKey, dangerouslyAllowBrowser: true });
+            const ai = new GoogleGenAI({
+                apiKey,
+                dangerouslyAllowBrowser: true
+            } as any);
 
             // Prepare context for AI
             const contextData = {

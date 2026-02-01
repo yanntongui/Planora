@@ -22,8 +22,8 @@ const ChatBubble: React.FC<{ message: Message }> = ({ message }) => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         className={`px-4 py-2 rounded-2xl max-w-sm whitespace-pre-wrap text-sm ${isModel
-            ? 'bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 rounded-bl-none'
-            : 'bg-purple-600 text-white rounded-br-none'
+          ? 'bg-zinc-200 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 rounded-bl-none'
+          : 'bg-purple-600 text-white rounded-br-none'
           }`}
       >
         {message.content}
@@ -134,7 +134,10 @@ const InsightsWidget: React.FC = () => {
       setError('');
 
       try {
-        const ai = new GoogleGenAI({ apiKey, dangerouslyAllowBrowser: true });
+        const ai = new GoogleGenAI({
+          apiKey,
+          dangerouslyAllowBrowser: true
+        } as any);
         const financialContext = getAggregatedContext();
 
         let toneInstruction = "Benevolent, non-judgmental, reassuring.";

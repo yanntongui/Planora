@@ -39,7 +39,10 @@ async function parseWithAI(input: string): Promise<ParsedCommand> {
     console.error("API key is not available.");
     return { action: 'UNKNOWN', payload: {} };
   }
-  const ai = new GoogleGenAI({ apiKey, dangerouslyAllowBrowser: true });
+  const ai = new GoogleGenAI({
+    apiKey,
+    dangerouslyAllowBrowser: true
+  } as any);
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
   const yesterdayISO = yesterday.toISOString().split('T')[0];
