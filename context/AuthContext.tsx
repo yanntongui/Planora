@@ -9,6 +9,8 @@ interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (email: string) => Promise<void>;
+  loginWithPassword: (email: string, password: string) => Promise<void>;
+  signupWithPassword: (email: string, password: string) => Promise<void>;
   verifyOtp: (email: string, token: string) => Promise<void>;
   logout: () => Promise<void>;
   error: string | null;
@@ -88,6 +90,41 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
+  const loginWithPassword = async (email: string, password: string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (error) throw error;
+    } catch (e: any) {
+      setError(e.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const signupWithPassword = async (email: string, password: string) => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: window.location.origin,
+        }
+      });
+      if (error) throw error;
+    } catch (e: any) {
+      setError(e.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const logout = async () => {
     setIsLoading(true);
     const { error } = await supabase.auth.signOut();
@@ -98,7 +135,18 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, isAuthenticated: !!user, isLoading, login, verifyOtp, logout, error }}>
+    <AuthContext.Provider value={{
+      user,
+      session,
+      isAuthenticated: !!user,
+      isLoading,
+      login,
+      loginWithPassword,
+      signupWithPassword,
+      verifyOtp,
+      logout,
+      error
+    }}>
       {children}
     </AuthContext.Provider>
   );

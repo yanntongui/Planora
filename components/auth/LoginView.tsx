@@ -10,15 +10,21 @@ interface LoginViewProps {
 
 const LoginView: React.FC<LoginViewProps> = ({ onSwitch }) => {
   const [email, setEmail] = useState('');
-  const { login, isLoading, error } = useAuth();
+  const [password, setPassword] = useState('');
+  const [usePassword, setUsePassword] = useState(false);
+  const { login, loginWithPassword, isLoading, error } = useAuth();
   const { t } = useLanguage();
   const [isSent, setIsSent] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      await login(email);
-      setIsSent(true);
+      if (usePassword) {
+        await loginWithPassword(email, password);
+      } else {
+        await login(email);
+        setIsSent(true);
+      }
     }
   };
 
@@ -58,6 +64,33 @@ const LoginView: React.FC<LoginViewProps> = ({ onSwitch }) => {
                 placeholder={t('auth.demoEmail')}
               />
             </div>
+
+            <div className="flex items-center gap-2 mb-2">
+              <input
+                type="checkbox"
+                id="usePassword"
+                checked={usePassword}
+                onChange={(e) => setUsePassword(e.target.checked)}
+                className="rounded border-zinc-300 dark:border-zinc-700 text-purple-600 focus:ring-purple-500"
+              />
+              <label htmlFor="usePassword" className="text-sm text-zinc-600 dark:text-zinc-400 cursor-pointer">
+                Utiliser un mot de passe
+              </label>
+            </div>
+
+            {usePassword && (
+              <div>
+                <label className="block text-xs font-medium text-zinc-700 dark:text-zinc-300 mb-1 uppercase tracking-wider">Mot de passe</label>
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg px-4 py-3 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all"
+                  placeholder="••••••••"
+                />
+              </div>
+            )}
 
             <button
               type="submit"
