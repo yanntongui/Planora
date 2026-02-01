@@ -82,7 +82,10 @@ const LiveAssistant: React.FC = () => {
         try {
             setIsConnected(true);
             setError(null);
-            const ai = new GoogleGenAI({ apiKey, dangerouslyAllowBrowser: true });
+            const ai = new GoogleGenAI({
+                apiKey: apiKey,
+                dangerouslyAllowBrowser: true
+            } as any);
 
             // Setup Audio
             const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
