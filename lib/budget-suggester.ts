@@ -1,4 +1,3 @@
-
 import { GoogleGenAI, Type } from '@google/genai';
 import { Transaction, SubCategory } from '../types';
 
@@ -23,7 +22,11 @@ export const suggestBudget = async (
     return [];
   }
 
-  const ai = new GoogleGenAI({ apiKey: API_KEY, dangerouslyAllowBrowser: true });
+  // Use 'as any' if the type doesn't yet include dangerouslyAllowBrowser in this version
+  const ai = new GoogleGenAI({
+    apiKey: API_KEY,
+    dangerouslyAllowBrowser: true
+  } as any);
 
   const transactionData = transactions
     .filter(t => t.type === 'expense')
@@ -46,7 +49,7 @@ export const suggestBudget = async (
 
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-3-flash-preview",
+      model: "gemini-2.0-flash",
       contents: prompt,
       config: {
         responseMimeType: "application/json",
