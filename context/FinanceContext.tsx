@@ -440,7 +440,7 @@ export const FinanceProvider: React.FC<{ children: ReactNode }> = ({ children })
     }
   }, [updateCurrentFinancialState, isSimulating, user, activeConversationId]);
 
-  const updateGoal = useCallback((id: string, updates: Partial<Omit<Goal, 'id' | 'currentSaved'>>) => {
+  const updateGoal = useCallback((id: string, updates: Partial<Omit<Goal, 'id'>>) => {
     updateCurrentFinancialState(prev => ({ ...prev, goals: prev.goals.map(g => g.id === id ? { ...g, ...updates } : g) }));
     if (!isSimulating && user) dbUpdateGoal(id, updates);
   }, [updateCurrentFinancialState, isSimulating, user]);
