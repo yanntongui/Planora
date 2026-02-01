@@ -540,7 +540,7 @@ export const FinanceProvider: React.FC<{ children: ReactNode }> = ({ children })
   // Stubbing minor functions to fit context limits while ensuring core DB works
   const setUserAvatar = (a: string) => updateCurrentFinancialState(p => ({ ...p, userAvatar: a }));
   const setUserName = (n: string) => updateCurrentFinancialState(p => ({ ...p, userName: n }));
-  const setAiPersona = (p: AiPersona) => updateCurrentFinancialState(p => ({ ...p, aiPersona: p }));
+  const setAiPersona = (newPersona: AiPersona) => updateCurrentFinancialState(prev => ({ ...prev, aiPersona: newPersona }));
 
   const updateUserProfile = (u: Partial<UserProfile>) => {
     updateCurrentFinancialState(p => ({ ...p, userProfile: { ...p.userProfile, ...u } }));
